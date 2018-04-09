@@ -12,6 +12,8 @@ import { SelectorData } from '../../components/basic-selector/basic.interfaces';
 export class UsersAppsComponent implements OnInit {
 
   appData: AppData;
+  selectedUser: User = new User();
+  selectedApp: Applications = new Applications();
 
   constructor(private route: ActivatedRoute) { }
 
@@ -26,6 +28,19 @@ export class UsersAppsComponent implements OnInit {
 
   }
 
+
+  onSelectUser(data) {
+
+    this.selectedUser = data.ref;
+
+  }
+
+  onSelectApp(data) {
+    this.selectedApp = data.ref;
+
+  }
+
+
 }
 
 
@@ -38,10 +53,12 @@ class AppData {
 
 
     users.forEach(d => {
-      this.usersData.push(new SelectorData(d.username, d.userid));
+      const newD = JSON.parse(JSON.stringify(d));
+      this.usersData.push(new SelectorData(d.username, d.userid, newD));
     });
     applications.forEach(d => {
-      this.appsData.push(new SelectorData(d.applicationName, d.id));
+      const newD = JSON.parse(JSON.stringify(d));
+      this.appsData.push(new SelectorData(d.applicationName, d.id, newD));
     });
 
 

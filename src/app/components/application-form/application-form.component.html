@@ -1,0 +1,14 @@
+<form class="form well form-inline form-border" [formGroup]="this.appForm" (ngSubmit)="onFormSubmit()"> 
+ 
+  <div class="row">
+    <label>ID: {{this.selectedApp.id}}</label>
+  </div>
+  <div class="row">
+    <label for="applicationName">Application Name: </label>
+    <input type="text" size="70" id="applicationName" formControlName="applicationName">
+  </div>
+  <div class="row">
+    <button class="btn btn-primary">Save</button>
+  </div>
+
+</form>

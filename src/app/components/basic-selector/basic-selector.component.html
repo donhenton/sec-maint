@@ -2,7 +2,7 @@
   <table class="table table-striped">
     <tr  class="selector-line" *ngFor="let d of this.listData">
 
-      <td>{{d.name}}</td>
+      <td width="90%">{{d.name}}</td><td><button (click)="this.processSelect(d)" class="btn btn-small btn-primary">Select</button></td>
       
     </tr>
    </table>

@@ -10,6 +10,8 @@ import { MenuDirective } from './components/dropdown/menu.directive';
 import { UsersAppsComponent } from './pages/users-apps/users-apps.component';
 import { SecurityService } from '../services/securityService';
 import { BasicSelectorComponent } from './components/basic-selector/basic-selector.component';
+import { ApplicationFormComponent } from './components/application-form/application-form.component';
+import { UserFormComponent } from './components/user-form/user-form.component';
 
 
 
@@ -27,7 +29,9 @@ const appRoutes: Routes = [
     DropdownDirective,
     UsersAppsComponent,
     UsersAppsComponent,
-    BasicSelectorComponent
+    BasicSelectorComponent,
+    ApplicationFormComponent,
+    UserFormComponent
   ],
   imports: [
     FormsModule,

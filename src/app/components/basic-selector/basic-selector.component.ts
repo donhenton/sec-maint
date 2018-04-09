@@ -1,4 +1,5 @@
-import { Component, OnInit, Output, Input } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+
 
 @Component({
   selector: 'app-basic-selector',
@@ -8,10 +9,15 @@ import { Component, OnInit, Output, Input } from '@angular/core';
 export class BasicSelectorComponent implements OnInit {
 
   @Input() listData;
+  @Output() selectEvent: any = new EventEmitter<any>();
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  processSelect(selectedObj) {
+     this.selectEvent.emit(selectedObj);
   }
 
 }
