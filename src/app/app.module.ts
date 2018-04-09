@@ -7,16 +7,27 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { DropdownDirective } from './components/dropdown/dropdown.directive';
 import { MenuDirective } from './components/dropdown/menu.directive';
+import { UsersAppsComponent } from './pages/users-apps/users-apps.component';
+import { SecurityService } from '../services/securityService';
+import { BasicSelectorComponent } from './components/basic-selector/basic-selector.component';
 
 
-const appRoutes: Routes = [];
+
+const appRoutes: Routes = [
+
+  { path: 'usersApps', component: UsersAppsComponent , resolve: {usersAppsData: SecurityService }},
+
+];
 
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuDirective,
-    DropdownDirective
+    DropdownDirective,
+    UsersAppsComponent,
+    UsersAppsComponent,
+    BasicSelectorComponent
   ],
   imports: [
     FormsModule,
@@ -25,7 +36,7 @@ const appRoutes: Routes = [];
     BrowserModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [SecurityService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

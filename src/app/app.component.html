@@ -6,75 +6,13 @@
 
       <ul>
         
-        <li><a routerLink="/debugging">Debugging</a></li>
+        <li><a routerLink="/usersApps">Users and<br> Applications</a></li>
+        <li><a routerLink="/pipes">Groups</a></li>
+        <li><a routerLink="/includes">Assignments</a></li>
+ 
+     
 
-
-        <li>
-          <aside dropdown>Udemy Demos</aside>
-          <ul>
-            <li><a routerLink="/udemy/viewChild">View Child</a></li>
-            <li><a routerLink="/udemy/templateForm">Template Form</a></li>
-            <li><a routerLink="/udemy/reactiveForm">Reactive Form</a></li>
-             
-          </ul>
-
-        </li>
-
-        <li>
-            <aside dropdown>Reactive Demos</aside>
-            <ul>
-                <li><a routerLink="/simpleReactive">Simple Reactive</a></li>
-                <li><a routerLink="/birtDemo">BIRT Demo</a></li>
-                <li><a routerLink="/orderDemo">Order Demo</a></li>
-               
-            </ul>
-  
-          </li>
-
-
-
-
-        <li>
-          <aside dropdown>Routing</aside>
-          <ul>
-            <li><a routerLink="/routing/linkActive">Active Link Indication & Others</a></li>
-            <li><a routerLink="/routing/linkActive/queryRoute" [queryParams]="{alpha:5543,beta:'get another  job'}">Query Parameters</a></li>
-            <li><a [routerLink]="['/routing/linkActive/queryRoute',{alpha:'yes-alpha',beta:'nowhere-beta'}]">Path Parameters</a></li>
-            <li>
-              <aside [isSubMenu]="true" dropdown>Child Routes</aside>
-              <ul>
-                <li><a routerLink="/childComponents/main">main</a></li>
-                <li><a routerLink="/childComponents/alpha">alpha</a></li>
-                <li><a routerLink="/childComponents/beta">beta</a></li>
-              </ul>
-
-            </li>
-          </ul>
-
-        </li>
-
-       
-
-        <li><a href="https://github.com/donhenton/angular4-snippets" target="_blank">Source Code</a></li>
-        <li>
-          <aside dropdown>Directive Demos</aside>
-          <ul>
-            <li><a routerLink="/directives">Standard Directives & Events</a></li>
-            <li><a routerLink="/pipes">Pipes and Two-Way Binding</a></li>
-            <li><a routerLink="/includes">Includes</a></li>
-            <li><a routerLink="/custom/directives">Custom Directives</a></li>
-          </ul>
-
-        </li>
-
-
-
-
-
-
-        <li><a routerLink="/">Home</a></li>
-
-
+ 
       </ul>
 
     </nav>
