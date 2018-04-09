@@ -1,20 +1,87 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<!--The whole content below can be removed with the new code.-->
+<section id="pageContainer">
+  <header>
+    <figure class="logo">Snippets</figure>
+    <nav menu (clickOutside)="detectMenuOutsideClick($event)" class="topMenu grouping">
 
+      <ul>
+        
+        <li><a routerLink="/debugging">Debugging</a></li>
+
+
+        <li>
+          <aside dropdown>Udemy Demos</aside>
+          <ul>
+            <li><a routerLink="/udemy/viewChild">View Child</a></li>
+            <li><a routerLink="/udemy/templateForm">Template Form</a></li>
+            <li><a routerLink="/udemy/reactiveForm">Reactive Form</a></li>
+             
+          </ul>
+
+        </li>
+
+        <li>
+            <aside dropdown>Reactive Demos</aside>
+            <ul>
+                <li><a routerLink="/simpleReactive">Simple Reactive</a></li>
+                <li><a routerLink="/birtDemo">BIRT Demo</a></li>
+                <li><a routerLink="/orderDemo">Order Demo</a></li>
+               
+            </ul>
+  
+          </li>
+
+
+
+
+        <li>
+          <aside dropdown>Routing</aside>
+          <ul>
+            <li><a routerLink="/routing/linkActive">Active Link Indication & Others</a></li>
+            <li><a routerLink="/routing/linkActive/queryRoute" [queryParams]="{alpha:5543,beta:'get another  job'}">Query Parameters</a></li>
+            <li><a [routerLink]="['/routing/linkActive/queryRoute',{alpha:'yes-alpha',beta:'nowhere-beta'}]">Path Parameters</a></li>
+            <li>
+              <aside [isSubMenu]="true" dropdown>Child Routes</aside>
+              <ul>
+                <li><a routerLink="/childComponents/main">main</a></li>
+                <li><a routerLink="/childComponents/alpha">alpha</a></li>
+                <li><a routerLink="/childComponents/beta">beta</a></li>
+              </ul>
+
+            </li>
+          </ul>
+
+        </li>
+
+       
+
+        <li><a href="https://github.com/donhenton/angular4-snippets" target="_blank">Source Code</a></li>
+        <li>
+          <aside dropdown>Directive Demos</aside>
+          <ul>
+            <li><a routerLink="/directives">Standard Directives & Events</a></li>
+            <li><a routerLink="/pipes">Pipes and Two-Way Binding</a></li>
+            <li><a routerLink="/includes">Includes</a></li>
+            <li><a routerLink="/custom/directives">Custom Directives</a></li>
+          </ul>
+
+        </li>
+
+
+
+
+
+
+        <li><a routerLink="/">Home</a></li>
+
+
+      </ul>
+
+    </nav>
+  </header>
+  <section id="main" class="grouping">
+    <div class="mainPageContainer">
+      <router-outlet></router-outlet>
+    </div>
+  </section>
+</section>
