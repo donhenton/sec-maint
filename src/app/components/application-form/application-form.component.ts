@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Outpu
 import { Applications } from '../../../services/security.interfaces';
 import { FormControl, FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import {EditState} from './../basic-selector/basic.interfaces';
+import {EditState, EditType, AppsUpdate, FormAction} from './../basic-selector/basic.interfaces';
 
 @Component({
   selector: 'app-application-form',
@@ -31,8 +31,11 @@ export class ApplicationFormComponent implements OnInit, OnChanges {
   }
 
   onFormSubmit() {
-    console.log('submit ' + this.appForm.get('applicationName').value);
-    this.formAction.emit({ type: 'APPLICATIONS', action: 'SAVE'});
+    const newApp = new Applications();
+    newApp.id = this.selectedApp.id;
+    newApp.applicationName = this.appForm.get('applicationName').value;
+    const appUpdate: AppsUpdate = new AppsUpdate(EditType.Applications, FormAction.SAVE, newApp);
+    this.formAction.emit(appUpdate);
 
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
-import {EditState} from './../basic-selector/basic.interfaces';
+import {EditState, UsersUpdate, AppsUpdate} from './../basic-selector/basic.interfaces';
 
 @Component({
   selector: 'app-basic-selector',
@@ -22,6 +22,10 @@ export class BasicSelectorComponent implements OnInit {
   }
   processDelete(selectedObj) {
     this.selectEvent.emit({ type: EditState.DELETE, selected: selectedObj });
+  }
+
+  doItemUpdate(d: AppsUpdate|UsersUpdate) {
+    console.log('basic selector ' + JSON.stringify(d));
   }
 
 }

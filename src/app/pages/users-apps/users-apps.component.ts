@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Applications, User } from '../../../services/security.interfaces';
-import { SelectorData, EditState } from '../../components/basic-selector/basic.interfaces';
+import { SelectorData, EditState, EditType} from '../../components/basic-selector/basic.interfaces';
+import { BasicSelectorComponent } from '../../components/basic-selector/basic-selector.component';
 
 
 @Component({
@@ -16,6 +17,8 @@ export class UsersAppsComponent implements OnInit {
   selectedApp: Applications = new Applications();
   userState: EditState = EditState.INITIAL;
   appState: EditState = EditState.INITIAL;
+  @ViewChild('appsSelector') appsSelector: BasicSelectorComponent;
+  @ViewChild('usersSelector') usersSelector: BasicSelectorComponent;
 
 
   constructor(private route: ActivatedRoute) { }
@@ -33,12 +36,13 @@ export class UsersAppsComponent implements OnInit {
 
   handleFormAction(d) {
 
-    console.log('handleFormAction ' + JSON.stringify(d));
-    if (d.type === 'APPLICATIONS') {
+    if (d.type === EditType.Applications) {
       this.appState = EditState.INITIAL;
+      this.appsSelector.doItemUpdate(d);
     }
-    if (d.type === 'USERS') {
+    if (d.type === EditType.Users) {
       this.userState = EditState.INITIAL;
+      this.usersSelector.doItemUpdate(d);
     }
   }
 
@@ -67,12 +71,12 @@ class AppData {
 
 
     users.forEach(d => {
-      const newD = JSON.parse(JSON.stringify(d));
-      this.usersData.push(new SelectorData(d.username, d.userid, newD));
+     // const newD = JSON.parse(JSON.stringify(d));
+      this.usersData.push(new SelectorData(d.username, d.userid, d));
     });
     applications.forEach(d => {
-      const newD = JSON.parse(JSON.stringify(d));
-      this.appsData.push(new SelectorData(d.applicationName, d.id, newD));
+      // const newD = JSON.parse(JSON.stringify(d));
+      this.appsData.push(new SelectorData(d.applicationName, d.id, d));
     });
 
 
