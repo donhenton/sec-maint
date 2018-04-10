@@ -8,10 +8,12 @@ import { AppComponent } from './app.component';
 import { DropdownDirective } from './components/dropdown/dropdown.directive';
 import { MenuDirective } from './components/dropdown/menu.directive';
 import { UsersAppsComponent } from './pages/users-apps/users-apps.component';
-import { SecurityService } from '../services/securityService';
+import {SecurityService} from './services/securityService';
 import { BasicSelectorComponent } from './components/basic-selector/basic-selector.component';
 import { ApplicationFormComponent } from './components/application-form/application-form.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
+import { AlertComponent } from './components/alert/alert.component';
+import { AlertService } from './services/alert.service';
 
 
 
@@ -31,7 +33,8 @@ const appRoutes: Routes = [
     UsersAppsComponent,
     BasicSelectorComponent,
     ApplicationFormComponent,
-    UserFormComponent
+    UserFormComponent,
+    AlertComponent
   ],
   imports: [
     FormsModule,
@@ -40,7 +43,7 @@ const appRoutes: Routes = [
     BrowserModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [SecurityService],
+  providers: [SecurityService, AlertService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

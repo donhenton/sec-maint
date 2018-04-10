@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Applications, User } from '../../../services/security.interfaces';
-import { SelectorData, EditState, EditType} from '../../components/basic-selector/basic.interfaces';
+import { Applications, User } from '../../services/security.interfaces';
+import { SelectorData, EditState, EditType } from '../../components/basic-selector/basic.interfaces';
 import { BasicSelectorComponent } from '../../components/basic-selector/basic-selector.component';
+import { AlertService } from '../../services/alert.service';
+import { SecurityService } from './../../services/securityService';
 
 
 @Component({
@@ -21,7 +23,9 @@ export class UsersAppsComponent implements OnInit {
   @ViewChild('usersSelector') usersSelector: BasicSelectorComponent;
 
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute,
+    private securityService: SecurityService,
+    private alertService: AlertService) { }
 
   ngOnInit() {
 
@@ -54,7 +58,33 @@ export class UsersAppsComponent implements OnInit {
 
   onSelectApp(data) {
     this.appState = data.type;
+    const me = this;
     this.selectedApp = data.selected.ref;
+    if (this.appState === EditState.DELETE) {
+      const message = `Do you wish to delete '${this.selectedApp.applicationName}'?`;
+      this.alertService.confirm(message, function () {
+        me.securityService.deleteApplication(me.selectedApp).subscribe(d => {
+
+          const oldUserData = me.appData.getUsers();
+          me.securityService.getAllApplications().subscribe(apps => {
+
+            me.appData = new AppData(apps, oldUserData);
+
+          }, error => {
+            console.log(error.json());
+          });
+
+
+        });
+
+      }, function () {
+        // ACTION: Do this if user says NO
+        console.log('got a no');
+      });
+
+
+
+    }
 
   }
 
@@ -71,7 +101,7 @@ class AppData {
 
 
     users.forEach(d => {
-     // const newD = JSON.parse(JSON.stringify(d));
+      // const newD = JSON.parse(JSON.stringify(d));
       this.usersData.push(new SelectorData(d.username, d.userid, d));
     });
     applications.forEach(d => {
@@ -79,7 +109,9 @@ class AppData {
       this.appsData.push(new SelectorData(d.applicationName, d.id, d));
     });
 
-
   }
+
+  getUsers(): User[] { return this.users; }
+  getApplicatons(): Applications[] { return this.applications; }
 
 }

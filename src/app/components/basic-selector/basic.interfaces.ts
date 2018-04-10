@@ -1,4 +1,4 @@
-import { Applications, User } from '../../../services/security.interfaces';
+import { Applications, User } from '../../services/security.interfaces';
 
 export class SelectorData {
 

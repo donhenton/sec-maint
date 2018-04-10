@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
-import { Applications } from '../../../services/security.interfaces';
+import { Applications } from '../../services/security.interfaces';
 import { FormControl, FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import {EditState, EditType, AppsUpdate, FormAction} from './../basic-selector/basic.interfaces';
