@@ -16,15 +16,15 @@
   </div>
 
   <div class="column50Right">
-    <h3>Applications</h3>
+    <h3>Applications  [{{this.appState}}]</h3>
     <div class="row">
-      <app-basic-selector (selectEvent)="this.onSelectApp($event)"  [listData]="this.appData.appsData"></app-basic-selector>
+      <app-basic-selector [editState]="this.appState" (selectEvent)="this.onSelectApp($event)"  [listData]="this.appData.appsData"></app-basic-selector>
     </div>
    
 
   <div class="edit-form-container">
 
-    <app-application-form  [selectedApp]="this.selectedApp"  ></app-application-form>
+    <app-application-form (formAction)="this.handleFormAction($event)"  [editState]="this.appState" [selectedApp]="this.selectedApp"  ></app-application-form>
 
   </div>
 </div>

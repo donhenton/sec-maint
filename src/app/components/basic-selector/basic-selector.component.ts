@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
-
+import {EditState} from './../basic-selector/basic.interfaces';
 
 @Component({
   selector: 'app-basic-selector',
@@ -9,6 +9,7 @@ import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 export class BasicSelectorComponent implements OnInit {
 
   @Input() listData;
+  @Input() editState: EditState = EditState.INITIAL;
   @Output() selectEvent: any = new EventEmitter<any>();
 
   constructor() { }
@@ -17,7 +18,10 @@ export class BasicSelectorComponent implements OnInit {
   }
 
   processSelect(selectedObj) {
-     this.selectEvent.emit(selectedObj);
+    this.selectEvent.emit({ type: EditState.EDIT, selected: selectedObj });
+  }
+  processDelete(selectedObj) {
+    this.selectEvent.emit({ type: EditState.DELETE, selected: selectedObj });
   }
 
 }

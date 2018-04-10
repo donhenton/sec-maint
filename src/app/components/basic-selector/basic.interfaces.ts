@@ -10,3 +10,9 @@ export class SelectorData {
 
      }
 }
+
+
+export enum EditState {
+    INITIAL, ADD, EDIT, DELETE
+
+}

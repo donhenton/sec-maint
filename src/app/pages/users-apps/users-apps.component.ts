@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Applications, User } from '../../../services/security.interfaces';
-import { SelectorData } from '../../components/basic-selector/basic.interfaces';
+import { SelectorData, EditState } from '../../components/basic-selector/basic.interfaces';
 
 
 @Component({
@@ -14,6 +14,9 @@ export class UsersAppsComponent implements OnInit {
   appData: AppData;
   selectedUser: User = new User();
   selectedApp: Applications = new Applications();
+  userState: EditState = EditState.INITIAL;
+  appState: EditState = EditState.INITIAL;
+
 
   constructor(private route: ActivatedRoute) { }
 
@@ -28,15 +31,26 @@ export class UsersAppsComponent implements OnInit {
 
   }
 
+  handleFormAction(d) {
+
+    console.log('handleFormAction ' + JSON.stringify(d));
+    if (d.type === 'APPLICATIONS') {
+      this.appState = EditState.INITIAL;
+    }
+    if (d.type === 'USERS') {
+      this.userState = EditState.INITIAL;
+    }
+  }
 
   onSelectUser(data) {
-
-    this.selectedUser = data.ref;
+    this.userState = data.type;
+    this.selectedUser = data.selected.ref;
 
   }
 
   onSelectApp(data) {
-    this.selectedApp = data.ref;
+    this.appState = data.type;
+    this.selectedApp = data.selected.ref;
 
   }
 
