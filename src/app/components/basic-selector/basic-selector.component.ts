@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
-import {EditState, UsersUpdate, AppsUpdate} from './../basic-selector/basic.interfaces';
+import { EditState, UsersUpdate, AppsUpdate, SelectorData } from './../basic-selector/basic.interfaces';
 
 @Component({
   selector: 'app-basic-selector',
@@ -8,7 +8,7 @@ import {EditState, UsersUpdate, AppsUpdate} from './../basic-selector/basic.inte
 })
 export class BasicSelectorComponent implements OnInit {
 
-  @Input() listData;
+  @Input() listData: SelectorData[];
   @Input() editState: EditState = EditState.INITIAL;
   @Output() selectEvent: any = new EventEmitter<any>();
 
@@ -24,8 +24,17 @@ export class BasicSelectorComponent implements OnInit {
     this.selectEvent.emit({ type: EditState.DELETE, selected: selectedObj });
   }
 
-  doItemUpdate(d: AppsUpdate|UsersUpdate) {
-    console.log('basic selector ' + JSON.stringify(d));
+  updateDisplayItem(d: SelectorData) {
+
+    this.listData = this.listData.map((v, idx) => {
+      if (v.id === d.id) {
+        return new SelectorData(d.name , v.id, v.ref);
+      } else {
+        return v;
+      }
+
+    });
+
   }
 
 }

@@ -50,19 +50,23 @@ export class SecurityService implements Resolve<any> {
         headers.append('Access-Control-Allow-Headers', 'Content-Type');
         headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
         headers.append('Access-Control-Allow-Origin', '*');
-        return new RequestOptions({headers: headers});
+        return new RequestOptions({ headers: headers });
     }
 
     deleteApplication(app: Applications) {
         const me = this;
         const r = this.createRequestOpts();
-        const payload = new RequestOptions({headers: r.headers, body: app});
+        const payload = new RequestOptions({ headers: r.headers, body: app });
 
         return this._http.delete(this.URL_BASE + 'applications/delete', payload);
     }
 
 
 
+    updateApplication(app: Applications): Observable<any> {
+
+        return this._http.put(this.URL_BASE + 'applications/save', app);
+    }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
 

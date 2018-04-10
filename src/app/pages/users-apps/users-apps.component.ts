@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Applications, User } from '../../services/security.interfaces';
-import { SelectorData, EditState, EditType } from '../../components/basic-selector/basic.interfaces';
+import { SelectorData, EditState, EditType, FormAction } from '../../components/basic-selector/basic.interfaces';
 import { BasicSelectorComponent } from '../../components/basic-selector/basic-selector.component';
 import { AlertService } from '../../services/alert.service';
 import { SecurityService } from './../../services/securityService';
@@ -39,20 +39,58 @@ export class UsersAppsComponent implements OnInit {
   }
 
   handleFormAction(d) {
+    const me = this;
+    // d.action is FormAction.SAVE or FormAction.CANCEL
+    if (d.action === FormAction.SAVE) {
+      // console.log('form asking for a save ' + JSON.stringify(d.newApp));
+      const payload: Applications =  d.newApp;
+      this.securityService.updateApplication(payload).subscribe(data => {
+         console.log('save success ' + JSON.stringify(data));
+        if (d.type === EditType.Applications) {
 
-    // currently CANCEL AND SAVE arent' checked because they yield the same result
-    // but you could
-    // see AppsUpdate  from './../basic-selector/basic.interfaces';
+        } else {
 
-    if (d.type === EditType.Applications) {
-      this.appState = EditState.INITIAL;
-      this.appsSelector.doItemUpdate(d);
+        }
+        const returnedValue  = JSON.parse(data._body);
+        me.updateList(returnedValue, d.type);
+
+
+      }, error => {
+        console.log('save problem ' + error.json());
+      });
+
+
+
+
+    } else {
+      // asking for a CANCEL
+
+      if (d.type === EditType.Applications) {
+        this.appState = EditState.INITIAL;
+       // this.appsSelector.doItemUpdate(d);
+      }
+      if (d.type === EditType.Users) {
+        this.userState = EditState.INITIAL;
+       // this.usersSelector.doItemUpdate(d);
+      }
     }
-    if (d.type === EditType.Users) {
-      this.userState = EditState.INITIAL;
-      this.usersSelector.doItemUpdate(d);
-    }
+
   }
+
+  updateList(data: any, type: EditType ) {
+    let selectorData: SelectorData;
+    if (type === EditType.Applications) {
+      selectorData = new SelectorData(data.applicationName, data.id, data);
+        this.appsSelector.updateDisplayItem(selectorData);
+    } else {
+      selectorData = new SelectorData(data.username, data.userid, data);
+        this.usersSelector.updateDisplayItem(selectorData);
+
+    }
+
+  }
+
+
 
   onSelectUser(data) {
     this.userState = data.type;
@@ -86,8 +124,8 @@ export class UsersAppsComponent implements OnInit {
 
       }, function () {
         // ACTION: Do this if user says NO
-       // console.log('got a no');
-       me.appState = EditState.INITIAL;
+        // console.log('got a no');
+        me.appState = EditState.INITIAL;
       });
 
 
@@ -109,11 +147,11 @@ class AppData {
 
 
     users.forEach(d => {
-        const newD = JSON.parse(JSON.stringify(d));
+      const newD = JSON.parse(JSON.stringify(d));
       this.usersData.push(new SelectorData(d.username, d.userid, newD));
     });
     applications.forEach(d => {
-        const newD = JSON.parse(JSON.stringify(d));
+      const newD = JSON.parse(JSON.stringify(d));
       this.appsData.push(new SelectorData(d.applicationName, d.id, newD));
     });
 
