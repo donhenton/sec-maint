@@ -47,9 +47,11 @@ export class UsersAppsComponent implements OnInit {
       this.securityService.updateApplication(payload).subscribe(data => {
          console.log('save success ' + JSON.stringify(data));
         if (d.type === EditType.Applications) {
-
+          me.appState = EditState.INITIAL;
+          me.selectedApp = new Applications();
         } else {
-
+          me.userState = EditState.INITIAL;
+          me.selectedUser = new User();
         }
         const returnedValue  = JSON.parse(data._body);
         me.updateList(returnedValue, d.type);
@@ -57,6 +59,8 @@ export class UsersAppsComponent implements OnInit {
 
       }, error => {
         console.log('save problem ' + error.json());
+        me.appState = EditState.INITIAL;
+        me.selectedApp = new Applications();
       });
 
 
@@ -67,10 +71,12 @@ export class UsersAppsComponent implements OnInit {
 
       if (d.type === EditType.Applications) {
         this.appState = EditState.INITIAL;
+        me.selectedApp = new Applications();
        // this.appsSelector.doItemUpdate(d);
       }
       if (d.type === EditType.Users) {
         this.userState = EditState.INITIAL;
+        me.selectedUser = new User();
        // this.usersSelector.doItemUpdate(d);
       }
     }
@@ -82,11 +88,14 @@ export class UsersAppsComponent implements OnInit {
     if (type === EditType.Applications) {
       selectorData = new SelectorData(data.applicationName, data.id, data);
         this.appsSelector.updateDisplayItem(selectorData);
+        this.appState = EditState.INITIAL;
     } else {
       selectorData = new SelectorData(data.username, data.userid, data);
         this.usersSelector.updateDisplayItem(selectorData);
+        this.userState = EditState.INITIAL;
 
     }
+
 
   }
 
@@ -102,6 +111,7 @@ export class UsersAppsComponent implements OnInit {
     this.appState = data.type;
     const me = this;
     this.selectedApp = data.selected.ref;
+    console.log('selecting app ' + JSON.stringify(this.selectedApp));
     if (this.appState === EditState.DELETE) {
       const message = `Do you wish to delete '${this.selectedApp.applicationName}'?`;
       this.alertService.confirm(message, function () {
@@ -113,10 +123,12 @@ export class UsersAppsComponent implements OnInit {
 
             me.appData = new AppData(apps, oldUserData);
             me.appState = EditState.INITIAL;
+            me.selectedApp = new Applications();
 
           }, error => {
             console.log(error.json());
             me.appState = EditState.INITIAL;
+            me.selectedApp = new Applications();
           });
 
 
@@ -126,6 +138,7 @@ export class UsersAppsComponent implements OnInit {
         // ACTION: Do this if user says NO
         // console.log('got a no');
         me.appState = EditState.INITIAL;
+        me.selectedApp = new Applications();
       });
 
 

@@ -28,7 +28,7 @@ export class BasicSelectorComponent implements OnInit {
 
     this.listData = this.listData.map((v, idx) => {
       if (v.id === d.id) {
-        return new SelectorData(d.name , v.id, v.ref);
+        return new SelectorData(d.name , d.id, d.ref);
       } else {
         return v;
       }
