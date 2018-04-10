@@ -40,6 +40,10 @@ export class UsersAppsComponent implements OnInit {
 
   handleFormAction(d) {
 
+    // currently CANCEL AND SAVE arent' checked because they yield the same result
+    // but you could
+    // see AppsUpdate  from './../basic-selector/basic.interfaces';
+
     if (d.type === EditType.Applications) {
       this.appState = EditState.INITIAL;
       this.appsSelector.doItemUpdate(d);
@@ -63,15 +67,18 @@ export class UsersAppsComponent implements OnInit {
     if (this.appState === EditState.DELETE) {
       const message = `Do you wish to delete '${this.selectedApp.applicationName}'?`;
       this.alertService.confirm(message, function () {
+        // this is the yes branch
         me.securityService.deleteApplication(me.selectedApp).subscribe(d => {
 
           const oldUserData = me.appData.getUsers();
           me.securityService.getAllApplications().subscribe(apps => {
 
             me.appData = new AppData(apps, oldUserData);
+            me.appState = EditState.INITIAL;
 
           }, error => {
             console.log(error.json());
+            me.appState = EditState.INITIAL;
           });
 
 
@@ -79,7 +86,8 @@ export class UsersAppsComponent implements OnInit {
 
       }, function () {
         // ACTION: Do this if user says NO
-        console.log('got a no');
+       // console.log('got a no');
+       me.appState = EditState.INITIAL;
       });
 
 
@@ -101,12 +109,12 @@ class AppData {
 
 
     users.forEach(d => {
-      // const newD = JSON.parse(JSON.stringify(d));
-      this.usersData.push(new SelectorData(d.username, d.userid, d));
+        const newD = JSON.parse(JSON.stringify(d));
+      this.usersData.push(new SelectorData(d.username, d.userid, newD));
     });
     applications.forEach(d => {
-      // const newD = JSON.parse(JSON.stringify(d));
-      this.appsData.push(new SelectorData(d.applicationName, d.id, d));
+        const newD = JSON.parse(JSON.stringify(d));
+      this.appsData.push(new SelectorData(d.applicationName, d.id, newD));
     });
 
   }

@@ -2,7 +2,8 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Outpu
 import { Applications } from '../../services/security.interfaces';
 import { FormControl, FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import {EditState, EditType, AppsUpdate, FormAction} from './../basic-selector/basic.interfaces';
+import { EditState, EditType, AppsUpdate, FormAction } from './../basic-selector/basic.interfaces';
+import { SecurityService } from '../../services/securityService';
 
 @Component({
   selector: 'app-application-form',
@@ -17,29 +18,54 @@ export class ApplicationFormComponent implements OnInit, OnChanges {
   @Output() formAction: EventEmitter<any> = new EventEmitter<any>();
 
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, securityService: SecurityService) { }
 
   ngOnInit() {
-      this.createAppForm();
+    this.createAppForm();
   }
   ngOnChanges(cc: SimpleChanges) {
-    // console.log(cc.selectedApp);
+    console.log(cc);
     if (this.appForm && cc.selectedApp) {
-       this.appForm.reset({applicationName: cc.selectedApp.currentValue.applicationName});
+      this.appForm.reset({ applicationName: cc.selectedApp.currentValue.applicationName });
+    }
+    if (cc.editState) {
+      if (this.appForm && cc.editState.previousValue !== EditState.INITIAL &&
+        cc.editState.currentValue === EditState.INITIAL) {
+          // requesting a reset of the form
+          this.appForm.reset({ applicationName: '' });
+
+      }
+
+
     }
 
   }
 
-  onFormSubmit() {
+
+  onCancel(ev) {
+
     const newApp = new Applications();
+    const me = this;
+    newApp.id = this.selectedApp.id;
+    newApp.applicationName = this.appForm.get('applicationName').value;
+    const appUpdate: AppsUpdate = new AppsUpdate(EditType.Applications, FormAction.CANCEL, newApp);
+    me.formAction.emit(appUpdate);
+  }
+
+  onFormSubmit() {
+
+    const newApp = new Applications();
+    const me = this;
     newApp.id = this.selectedApp.id;
     newApp.applicationName = this.appForm.get('applicationName').value;
     const appUpdate: AppsUpdate = new AppsUpdate(EditType.Applications, FormAction.SAVE, newApp);
-    this.formAction.emit(appUpdate);
+    me.formAction.emit(appUpdate);
+
 
   }
 
   createAppForm() {
+
     this.appForm = this.formBuilder.group({
       applicationName: ['', Validators.required]
     });
