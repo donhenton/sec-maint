@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Outpu
 import { Applications } from '../../services/security.interfaces';
 import { FormControl, FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { EditState, EditType, AppsUpdate, FormAction } from './../basic-selector/basic.interfaces';
+import { EditState, EditType, AppsUpdate} from './../basic-selector/basic.interfaces';
 import { SecurityService } from '../../services/securityService';
 
 @Component({
@@ -41,14 +41,20 @@ export class ApplicationFormComponent implements OnInit, OnChanges {
 
   }
 
+ onAdd(ev) {
+  const me = this;
+  me.editState = EditState.ADD;
+  this.formAction.emit({type: EditType.Applications, action: EditState.ADD});
+ }
 
   onCancel(ev) {
 
+    this.editState = EditState.INITIAL;
     const newApp = new Applications();
     const me = this;
     newApp.id = this.selectedApp.id;
     newApp.applicationName = this.appForm.get('applicationName').value;
-    const appUpdate: AppsUpdate = new AppsUpdate(EditType.Applications, FormAction.CANCEL, newApp);
+    const appUpdate: AppsUpdate = new AppsUpdate(EditType.Applications, EditState.FORM_CANCEL, newApp);
     me.formAction.emit(appUpdate);
   }
 
@@ -58,7 +64,7 @@ export class ApplicationFormComponent implements OnInit, OnChanges {
     const me = this;
     newApp.id = this.selectedApp.id;
     newApp.applicationName = this.appForm.get('applicationName').value;
-    const appUpdate: AppsUpdate = new AppsUpdate(EditType.Applications, FormAction.SAVE, newApp);
+    const appUpdate: AppsUpdate = new AppsUpdate(EditType.Applications, EditState.FORM_SAVE, newApp);
     me.formAction.emit(appUpdate);
 
 

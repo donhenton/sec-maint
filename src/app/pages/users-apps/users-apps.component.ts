@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Applications, User } from '../../services/security.interfaces';
-import { SelectorData, EditState, EditType, FormAction } from '../../components/basic-selector/basic.interfaces';
+import { SelectorData, EditState, EditType } from '../../components/basic-selector/basic.interfaces';
 import { BasicSelectorComponent } from '../../components/basic-selector/basic-selector.component';
 import { AlertService } from '../../services/alert.service';
 import { SecurityService } from './../../services/securityService';
@@ -39,10 +39,25 @@ export class UsersAppsComponent implements OnInit {
   }
 
   handleFormAction(d) {
+
     const me = this;
-    // d.action is FormAction.SAVE or FormAction.CANCEL
-    if (d.action === FormAction.SAVE) {
-      // console.log('form asking for a save ' + JSON.stringify(d.newApp));
+    // d.action is EditState.SAVE or EditState.CANCEL
+
+    if (d.action === EditState.ADD ) {
+       if (d.type === EditType.Applications) {
+         console.log('set app to add');
+        this.appState = d.action;
+       } else {
+        this.userState = d.action;
+       }
+       return;
+    }
+
+
+
+
+    if (d.action === EditState.FORM_SAVE) {
+      //   console.log('form asking for a save ' + JSON.stringify(d.newApp));
       const payload: Applications =  d.newApp;
       this.securityService.updateApplication(payload).subscribe(data => {
          console.log('save success ' + JSON.stringify(data));

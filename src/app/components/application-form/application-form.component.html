@@ -1,5 +1,7 @@
 <form class="form well form-inline form-border"  [formGroup]="this.appForm" (ngSubmit)="onFormSubmit()"> 
- 
+  <div class="row">
+    <button type="button"  id="appAddlButton" (click)="this.onAdd($event)"  [disabled]="this.editState === 2" class="btn btn-primary">Add</button>
+  </div>
   <div class="row">
     <label>ID: {{this.selectedApp.id}}</label> <label class='pull-right'>[{{this.editState}}]</label>
   </div>
@@ -9,7 +11,6 @@
   </div>
   <div class="row">
     <button type="submit" id="appSubmitButton" [disabled]="this.appForm.invalid && !this.appForm.dirty" class="btn btn-primary">Save</button>
-    
     <button type="button"  id="appCancelButton" (click)="this.onCancel($event)"  [disabled]="this.appForm.invalid && !this.appForm.dirty" class="btn btn-red">Cancel</button>
   </div>
 

@@ -15,20 +15,18 @@ export class SelectorData {
 
 
 export enum EditState {
-    INITIAL, ADD, EDIT, DELETE
+    INITIAL, ADD, EDIT, DELETE, FORM_SAVE, FORM_CANCEL
 
 }
-export enum FormAction {
-    SAVE, CANCEL
-}
+
 
 export class AppsUpdate {
 
     type: EditType;
-    action: FormAction;
+    action: EditState;
     newApp: Applications;
 
-    constructor(type: EditType, action: FormAction, newApp: Applications ) {
+    constructor(type: EditType, action: EditState, newApp: Applications ) {
        this.type = type;
        this.action = action;
        this.newApp = newApp;
@@ -40,10 +38,10 @@ export class AppsUpdate {
 export class UsersUpdate {
 
     type: EditType;
-    action: FormAction;
+    action: EditState;
     newUser: User;
 
-    constructor(type: EditType, action: FormAction, newUser: User ) {
+    constructor(type: EditType, action: EditState, newUser: User ) {
        this.type = type;
        this.action = action;
        this.newUser = newUser;
