@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
-import { Applications } from '../../services/security.interfaces';
+import { Applications, User } from '../../services/security.interfaces';
 import { FormControl, FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { EditState, EditType, AppsUpdate} from './../basic-selector/basic.interfaces';
+import { EditState, EditType, AppsUpdate } from './../basic-selector/basic.interfaces';
 import { SecurityService } from '../../services/securityService';
 
 @Component({
@@ -13,35 +13,44 @@ import { SecurityService } from '../../services/securityService';
 export class ApplicationFormComponent implements OnInit, OnChanges {
 
   @Input() selectedApp: Applications;
+  @Input() selectedUser: User;
   appForm: FormGroup;
   @Input() editState: EditState = EditState.INITIAL;
+  @Input() formTargetInput: any;
+  formTarget: EditType; // are you editing users or applications
   @Output() formAction: EventEmitter<any> = new EventEmitter<any>();
 
+  constructor(private formBuilder: FormBuilder, securityService: SecurityService) {
 
-  constructor(private formBuilder: FormBuilder, securityService: SecurityService) { }
-
-  ngOnInit() {
+    // console.log('init');
     this.createAppForm();
   }
-  ngOnChanges(cc: SimpleChanges) {
-    console.log(cc);
-    if (this.appForm && cc.selectedApp) {
-      this.appForm.reset({ applicationName: cc.selectedApp.currentValue.applicationName });
+
+  ngOnInit() {
+
+  }
+  ngOnChanges(change: SimpleChanges) {
+    // console.log(JSON.stringify(change));
+    // console.log('form is '+this.appForm);
+    if (change.formTargetInput) {
+      this.formTarget = Number(EditType[this.formTargetInput]);
+      // console.log(`formTarget ${this.formTarget}`);
     }
-    if (cc.editState) {
-      if (this.appForm && cc.editState.previousValue !== EditState.INITIAL &&
-        cc.editState.currentValue === EditState.INITIAL) {
-          // requesting a reset of the form
-          this.appForm.reset({ applicationName: '' });
+
+    if (this.appForm && change.selectedApp) {
+      this.appForm.reset({ applicationName: change.selectedApp.currentValue.applicationName });
+    }
+    if (change.editState) {
+      if (this.appForm && change.editState.previousValue !== EditState.INITIAL &&
+        change.editState.currentValue === EditState.INITIAL) {
+        // requesting a reset of the form
+        this.appForm.reset({ applicationName: '' });
 
       }
 
-
     }
 
   }
-
-
 
   onCancel(ev) {
 

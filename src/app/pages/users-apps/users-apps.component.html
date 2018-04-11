@@ -28,7 +28,7 @@
 
   <div *ngIf="this.appState !== 0" class="edit-form-container">
     
-    <app-application-form (formAction)="this.handleFormAction($event)"  [editState]="this.appState" [selectedApp]="this.selectedApp"  ></app-application-form>
+    <app-application-form (formAction)="this.handleFormAction($event)" [formTargetInput]="'Applications'" [editState]="this.appState" [selectedApp]="this.selectedApp"  ></app-application-form>
 
   </div>
 </div>
