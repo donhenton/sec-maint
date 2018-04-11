@@ -22,7 +22,7 @@
     </div>
     <div class="row">
       <button type="button" *ngIf="this.appState === 0" id="appAddlButton" (click)="this.onAddOrCancel({type:'Applications',request:'ADD'})"   class="btn btn-primary">Add</button>
-      <button type="button" *ngIf="this.appState !== 0" id="appCancelButton" (click)="this.onAddOrCancel({type:'Applications',request:'INITIAL'})"   class="btn btn-primary">Cancel</button>
+      <button type="button" *ngIf="this.appState === 1" id="appCancelButton" (click)="this.onAddOrCancel({type:'Applications',request:'INITIAL'})"   class="btn btn-primary">Cancel</button>
     
     </div>
 

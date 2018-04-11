@@ -17,6 +17,7 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Rx'; // NOT from 'rxjs/Rx/Observable
 import { User, Applications } from './security.interfaces';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { EditType, EditState } from '../components/basic-selector/basic.interfaces';
 
 @Injectable()
 export class SecurityService implements Resolve<any> {
@@ -57,11 +58,41 @@ export class SecurityService implements Resolve<any> {
         const me = this;
         const r = this.createRequestOpts();
         const payload = new RequestOptions({ headers: r.headers, body: app });
-
         return this._http.delete(this.URL_BASE + 'applications/delete', payload);
     }
 
+    deleteUser(user: User) {
+        const me = this;
+        const r = this.createRequestOpts();
+        const payload = new RequestOptions({ headers: r.headers, body: user });
+        return this._http.delete(this.URL_BASE + 'users/delete', payload);
+    }
 
+    addOrUpdate(payload: Applications | User, type: EditType, action: EditState): Observable<any> {
+
+        if (type === EditType.Applications) {
+            const app: Applications = payload as Applications;
+            if (action === EditState.ADD) {
+                app.id = -1;
+                return this._http.post(this.URL_BASE + 'applications/add', app);
+            }
+            if (action === EditState.EDIT) {
+                return this._http.put(this.URL_BASE + 'applications/save', app);
+            }
+
+        } else {
+            const user: User = payload as User;
+            if (action === EditState.ADD) {
+                return this._http.post(this.URL_BASE + 'users/add', user);
+            }
+            if (action === EditState.EDIT) {
+                return this._http.put(this.URL_BASE + 'users/save', user);
+            }
+        }
+
+
+
+    }
 
     updateApplication(app: Applications): Observable<any> {
 

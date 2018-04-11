@@ -23,7 +23,7 @@ export class ApplicationFormComponent implements OnInit, OnChanges {
   constructor(private formBuilder: FormBuilder, securityService: SecurityService) {
 
     // console.log('init');
-    this.createAppForm();
+
   }
 
   ngOnInit() {
@@ -35,16 +35,17 @@ export class ApplicationFormComponent implements OnInit, OnChanges {
     if (change.formTargetInput) {
       this.formTarget = Number(EditType[this.formTargetInput]);
       // console.log(`formTarget ${this.formTarget}`);
+      this.createAppForm();
     }
 
     if (this.appForm && change.selectedApp) {
-      this.appForm.reset({ applicationName: change.selectedApp.currentValue.applicationName });
+      this.setFromToSelectedItem(change);
     }
     if (change.editState) {
       if (this.appForm && change.editState.previousValue !== EditState.INITIAL &&
         change.editState.currentValue === EditState.INITIAL) {
         // requesting a reset of the form
-        this.appForm.reset({ applicationName: '' });
+        this.resetFormToEmpty();
 
       }
 
@@ -52,34 +53,56 @@ export class ApplicationFormComponent implements OnInit, OnChanges {
 
   }
 
+  setFromToSelectedItem(change) {
+    if (this.formTarget === EditType.Applications) {
+      this.appForm.reset({ applicationName: change.selectedApp.currentValue.applicationName });
+    } else {
+
+    }
+  }
+
+  resetFormToEmpty() {
+    this.appForm.reset({ applicationName: '' });
+  }
+
   onCancel(ev) {
 
     this.editState = EditState.INITIAL;
-    const newApp = new Applications();
-    const me = this;
-    newApp.id = this.selectedApp.id;
-    newApp.applicationName = this.appForm.get('applicationName').value;
-    const appUpdate: AppsUpdate = new AppsUpdate(EditType.Applications, EditState.FORM_CANCEL, newApp);
-    me.formAction.emit(appUpdate);
+    if (this.formTarget === EditType.Applications) {
+      const newApp = new Applications();
+      const me = this;
+      newApp.id = this.selectedApp.id;
+      newApp.applicationName = this.appForm.get('applicationName').value;
+      const appUpdate: AppsUpdate = new AppsUpdate(EditType.Applications, EditState.FORM_CANCEL, newApp);
+      me.formAction.emit(appUpdate);
+    } else {
+
+    }
+    this.resetFormToEmpty();
   }
 
   onFormSubmit() {
+    if (this.formTarget === EditType.Applications) {
+      const newApp = new Applications();
+      const me = this;
+      newApp.id = this.selectedApp.id;
+      newApp.applicationName = this.appForm.get('applicationName').value;
+      const appUpdate: AppsUpdate = new AppsUpdate(EditType.Applications, EditState.FORM_SAVE, newApp);
+      me.formAction.emit(appUpdate);
+    } else {
 
-    const newApp = new Applications();
-    const me = this;
-    newApp.id = this.selectedApp.id;
-    newApp.applicationName = this.appForm.get('applicationName').value;
-    const appUpdate: AppsUpdate = new AppsUpdate(EditType.Applications, EditState.FORM_SAVE, newApp);
-    me.formAction.emit(appUpdate);
-
+    }
 
   }
 
   createAppForm() {
-
-    this.appForm = this.formBuilder.group({
-      applicationName: ['', Validators.required]
-    });
+    if (this.formTarget === EditType.Applications) {
+      this.appForm = this.formBuilder.group({
+        applicationName: ['', Validators.required]
+      });
+    } else {
+      console.log('bonzo');
+    }
   }
 
 }

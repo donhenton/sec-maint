@@ -22,12 +22,12 @@ export class AppsUpdate {
 
     type: EditType;
     action: EditState;
-    newApp: Applications;
+    payload: any;
 
-    constructor(type: EditType, action: EditState, newApp: Applications ) {
+    constructor(type: EditType, action: EditState, payload: any ) {
        this.type = type;
        this.action = action;
-       this.newApp = newApp;
+       this.payload = payload;
 
     }
 

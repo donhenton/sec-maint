@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Applications, User } from '../../services/security.interfaces';
-import { SelectorData, EditState, EditType } from '../../components/basic-selector/basic.interfaces';
+import { SelectorData, EditState, EditType, AppsUpdate } from '../../components/basic-selector/basic.interfaces';
 import { BasicSelectorComponent } from '../../components/basic-selector/basic-selector.component';
 import { AlertService } from '../../services/alert.service';
 import { SecurityService } from './../../services/securityService';
@@ -58,15 +58,23 @@ export class UsersAppsComponent implements OnInit {
 
   }
 
-  handleFormAction(d) {
+  handleFormAction(d: AppsUpdate) {
 
     const me = this;
+   // debugger;
+    let action: EditState;
     // d.action is EditState.SAVE or EditState.CANCEL
+    if (d.type === EditType.Applications) {
+      action = this.appState;
+    } else {
+      action = this.userState;
+    }
 
     if (d.action === EditState.FORM_SAVE) {
       //   console.log('form asking for a save ' + JSON.stringify(d.newApp));
-      const payload: Applications = d.newApp;
-      this.securityService.updateApplication(payload).subscribe(data => {
+
+      this.securityService.addOrUpdate(d.payload, d.type, action).subscribe(data => {
+       // debugger
         console.log('save success ' + JSON.stringify(data));
         if (d.type === EditType.Applications) {
           me.appState = EditState.INITIAL;
@@ -76,13 +84,18 @@ export class UsersAppsComponent implements OnInit {
           me.selectedUser = new User();
         }
         const returnedValue = JSON.parse(data._body);
-        me.updateList(returnedValue, d.type);
+        me.updateList(returnedValue, d.type, action);
 
 
       }, error => {
         console.log('save problem ' + error.json());
         me.appState = EditState.INITIAL;
-        me.selectedApp = new Applications();
+        if (d.type === EditType.Applications) {
+          me.selectedApp = new Applications();
+        } else {
+
+          me.selectedUser = new User();
+        }
       });
 
 
@@ -105,15 +118,15 @@ export class UsersAppsComponent implements OnInit {
 
   }
 
-  updateList(data: any, type: EditType) {
+  updateList(data: any, type: EditType, action: EditType) {
     let selectorData: SelectorData;
     if (type === EditType.Applications) {
       selectorData = new SelectorData(data.applicationName, data.id, data);
-      this.appsSelector.updateDisplayItem(selectorData);
+      this.appsSelector.updateDisplayItem(selectorData, action);
       this.appState = EditState.INITIAL;
     } else {
       selectorData = new SelectorData(data.username, data.userid, data);
-      this.usersSelector.updateDisplayItem(selectorData);
+      this.usersSelector.updateDisplayItem(selectorData, action);
       this.userState = EditState.INITIAL;
 
     }
