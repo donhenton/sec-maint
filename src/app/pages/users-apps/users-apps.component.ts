@@ -118,7 +118,7 @@ export class UsersAppsComponent implements OnInit {
 
   }
 
-  updateList(data: any, type: EditType, action: EditType) {
+  updateList(data: any, type: EditType, action: EditState) {
     let selectorData: SelectorData;
     if (type === EditType.Applications) {
       selectorData = new SelectorData(data.applicationName, data.id, data);
