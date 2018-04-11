@@ -44,22 +44,17 @@ export class UsersAppsComponent implements OnInit {
     // d.request REVERT OR ADD
     // d.type Applications or Users
     // http:// www.dailycoding.com/Posts/enum_coversion_operations_int_to_enum_enum_to_int_string_to_enum_enum_to_string.aspx
+    // EditType[d.type] gets the index value in the enum from a string d.type == 'Applicatons'
 
-    const requestedTypeNumber: number = parseInt(EditType[d.type], 10); // turn a string to a enum index
-    // const requestedType;
-    // const requestedType: EditType = EditType[requestedTypeNumber]; // turn a number to an enum
-    const requestedActionNumber: number = parseInt(EditState[d.request], 10); // turn a string to a enum index
-   // const requestedAction: EditState = EditState[requestedActionNumber]; // turn a number to an enum
+    const requestedType: EditType = Number(EditType[d.type]);
+    const requestedAction: EditState = Number(EditState[d.request]);
 
-    console.log(`current appState ${this.appState} requesting ${requestedTypeNumber} ${(typeof requestedTypeNumber)}`);
-    if (requestedTypeNumber === EditType.Applications.valueOf()) {
-      console.log('1');
-      this.appState = requestedActionNumber;
+    if (requestedType === EditType.Applications) {
+      this.appState = requestedAction;
     } else {
-      console.log('3');
-      this.userState = requestedActionNumber;
+      this.userState = requestedAction;
     }
-    console.log(`now appState ${this.appState} `);
+
 
   }
 
