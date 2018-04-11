@@ -134,7 +134,48 @@ export class UsersAppsComponent implements OnInit {
 
   }
 
+  whichFormIsActive(): EditType {
+    if (this.appState !==  EditState.INITIAL && this.userState === EditState.INITIAL) {
+      return EditType.Applications;
+    }
+    if (this.userState !==  EditState.INITIAL && this.appState === EditState.INITIAL) {
+      return EditType.Users;
+    }
+    return null;
 
+  }
+
+  computeFormClass(type) {
+
+    const cssItems = [];
+    const requestedType: EditType = Number(EditType[type]);
+    if (requestedType === EditType.Applications) {
+      // cssItems.push('column50Right');
+    } else {
+      // cssItems.push('column50Left');
+    }
+   // console.log('1');
+    if (!this.whichFormIsActive() === null) {
+      return [];
+    }
+   // console.log('2');
+    if (this.whichFormIsActive() === EditType.Applications && requestedType === EditType.Applications) {
+      cssItems.push('form-active');
+    }
+    if (this.whichFormIsActive() === EditType.Users && requestedType === EditType.Users) {
+      cssItems.push('form-active');
+    }
+    if (this.whichFormIsActive() === EditType.Applications && requestedType === EditType.Users) {
+      cssItems.push('form-non-active');
+    }
+    if (this.whichFormIsActive() === EditType.Users && requestedType === EditType.Applications) {
+      cssItems.push('form-non-active');
+    }
+
+
+    return cssItems;
+
+  }
 
   onSelectUser(data) {
     this.userState = data.type;

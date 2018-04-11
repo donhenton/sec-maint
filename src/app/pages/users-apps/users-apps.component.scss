@@ -4,3 +4,17 @@
     padding: 10px;
     border: thin solid blue;
 }
+
+.form-column {
+    position: relative
+}
+.form-non-active {
+
+    position: absolute;
+    background-color: white;
+    opacity: .75;
+    width:100%;
+    top:0;
+    left: 0;
+    height: 100%;
+}

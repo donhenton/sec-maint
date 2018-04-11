@@ -95,13 +95,29 @@ export class ApplicationFormComponent implements OnInit, OnChanges {
 
   }
 
+  showForm(type) {
+
+    const requestedType: EditType = Number(EditType[type]);
+
+    if (this.formTarget === requestedType ) {
+      return true;
+    }
+    return false;
+  }
+
   createAppForm() {
     if (this.formTarget === EditType.Applications) {
       this.appForm = this.formBuilder.group({
         applicationName: ['', Validators.required]
       });
     } else {
-      console.log('bonzo');
+      this.appForm = this.formBuilder.group({
+
+        username: ['', Validators.required],
+        login:  ['', Validators.required]
+
+
+      });
     }
   }
 
