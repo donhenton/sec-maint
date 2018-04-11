@@ -41,6 +41,9 @@ export class ApplicationFormComponent implements OnInit, OnChanges {
     if (this.appForm && change.selectedApp) {
       this.setFromToSelectedItem(change);
     }
+    if (this.appForm && change.selectedUser) {
+      this.setFromToSelectedItem(change);
+    }
     if (change.editState) {
       if (this.appForm && change.editState.previousValue !== EditState.INITIAL &&
         change.editState.currentValue === EditState.INITIAL) {
@@ -57,7 +60,9 @@ export class ApplicationFormComponent implements OnInit, OnChanges {
     if (this.formTarget === EditType.Applications) {
       this.appForm.reset({ applicationName: change.selectedApp.currentValue.applicationName });
     } else {
+     // {{this.selectedUser.userid}}
 
+     this.appForm.reset({ username: change.selectedUser.currentValue.username, login: change.selectedUser.currentValue.login });
     }
   }
 

@@ -36,6 +36,7 @@ export class UsersAppsComponent implements OnInit {
         this.appData = new AppData(data.usersAppsData[0], data.usersAppsData[1]);
       });
 
+
   }
 
   onAddOrCancel(d) {
@@ -180,6 +181,8 @@ export class UsersAppsComponent implements OnInit {
   onSelectUser(data) {
     this.userState = data.type;
     this.selectedUser = data.selected.ref;
+
+     console.log('selected uuu ' + JSON.stringify(this.selectedUser));
 
   }
 

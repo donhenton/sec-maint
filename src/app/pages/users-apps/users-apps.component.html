@@ -12,7 +12,7 @@
     </div>
     <div *ngIf="this.userState !== 0" class="edit-form-container">
 
-      <app-application-form (formAction)="this.handleFormAction($event)" [formTargetInput]="'Users'" [editState]="this.userState" [selectedApp]="this.selectedUser"  ></app-application-form>
+      <app-application-form (formAction)="this.handleFormAction($event)" [formTargetInput]="'Users'" [editState]="this.userState" [selectedUser]="this.selectedUser"  ></app-application-form>
 
     </div>
     <div [ngClass]="this.computeFormClass('Users')"></div>
