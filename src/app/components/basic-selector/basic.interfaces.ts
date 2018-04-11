@@ -13,12 +13,10 @@ export class SelectorData {
      }
 }
 
-
 export enum EditState {
     INITIAL, ADD, EDIT, DELETE, FORM_SAVE, FORM_CANCEL
 
 }
-
 
 export class AppsUpdate {
 

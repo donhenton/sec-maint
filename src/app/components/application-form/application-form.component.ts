@@ -41,11 +41,7 @@ export class ApplicationFormComponent implements OnInit, OnChanges {
 
   }
 
- onAdd(ev) {
-  const me = this;
-  me.editState = EditState.ADD;
-  this.formAction.emit({type: EditType.Applications, action: EditState.ADD});
- }
+
 
   onCancel(ev) {
 

@@ -1,9 +1,8 @@
-<form class="form well form-inline form-border"  [formGroup]="this.appForm" (ngSubmit)="onFormSubmit()"> 
+<form  class="form well form-inline form-border"  [formGroup]="this.appForm" (ngSubmit)="onFormSubmit()"> 
+  
   <div class="row">
-    <button type="button"  id="appAddlButton" (click)="this.onAdd($event)"  [disabled]="this.editState === 2" class="btn btn-primary">Add</button>
-  </div>
-  <div class="row">
-    <label>ID: {{this.selectedApp.id}}</label> <label class='pull-right'>[{{this.editState}}]</label>
+    <label *ngIf="this.editState > 1">ID: {{this.selectedApp.id}}</label> <label class='pull-right'>[{{this.editState}}]</label>
+    <label *ngIf="this.editState === 1" class="add-label">(Enter new Application Name)</label>
   </div>
   <div class="row">
     <label for="applicationName">Application Name: </label>

@@ -38,29 +38,41 @@ export class UsersAppsComponent implements OnInit {
 
   }
 
+  onAddOrCancel(d) {
+
+    const me = this;
+    // d.request REVERT OR ADD
+    // d.type Applications or Users
+    // http:// www.dailycoding.com/Posts/enum_coversion_operations_int_to_enum_enum_to_int_string_to_enum_enum_to_string.aspx
+
+    const requestedTypeNumber: number = parseInt(EditType[d.type], 10); // turn a string to a enum index
+    // const requestedType;
+    // const requestedType: EditType = EditType[requestedTypeNumber]; // turn a number to an enum
+    const requestedActionNumber: number = parseInt(EditState[d.request], 10); // turn a string to a enum index
+   // const requestedAction: EditState = EditState[requestedActionNumber]; // turn a number to an enum
+
+    console.log(`current appState ${this.appState} requesting ${requestedTypeNumber} ${(typeof requestedTypeNumber)}`);
+    if (requestedTypeNumber === EditType.Applications.valueOf()) {
+      console.log('1');
+      this.appState = requestedActionNumber;
+    } else {
+      console.log('3');
+      this.userState = requestedActionNumber;
+    }
+    console.log(`now appState ${this.appState} `);
+
+  }
+
   handleFormAction(d) {
 
     const me = this;
     // d.action is EditState.SAVE or EditState.CANCEL
 
-    if (d.action === EditState.ADD ) {
-       if (d.type === EditType.Applications) {
-         console.log('set app to add');
-        this.appState = d.action;
-       } else {
-        this.userState = d.action;
-       }
-       return;
-    }
-
-
-
-
     if (d.action === EditState.FORM_SAVE) {
       //   console.log('form asking for a save ' + JSON.stringify(d.newApp));
-      const payload: Applications =  d.newApp;
+      const payload: Applications = d.newApp;
       this.securityService.updateApplication(payload).subscribe(data => {
-         console.log('save success ' + JSON.stringify(data));
+        console.log('save success ' + JSON.stringify(data));
         if (d.type === EditType.Applications) {
           me.appState = EditState.INITIAL;
           me.selectedApp = new Applications();
@@ -68,7 +80,7 @@ export class UsersAppsComponent implements OnInit {
           me.userState = EditState.INITIAL;
           me.selectedUser = new User();
         }
-        const returnedValue  = JSON.parse(data._body);
+        const returnedValue = JSON.parse(data._body);
         me.updateList(returnedValue, d.type);
 
 
@@ -87,27 +99,27 @@ export class UsersAppsComponent implements OnInit {
       if (d.type === EditType.Applications) {
         this.appState = EditState.INITIAL;
         me.selectedApp = new Applications();
-       // this.appsSelector.doItemUpdate(d);
+        // this.appsSelector.doItemUpdate(d);
       }
       if (d.type === EditType.Users) {
         this.userState = EditState.INITIAL;
         me.selectedUser = new User();
-       // this.usersSelector.doItemUpdate(d);
+        // this.usersSelector.doItemUpdate(d);
       }
     }
 
   }
 
-  updateList(data: any, type: EditType ) {
+  updateList(data: any, type: EditType) {
     let selectorData: SelectorData;
     if (type === EditType.Applications) {
       selectorData = new SelectorData(data.applicationName, data.id, data);
-        this.appsSelector.updateDisplayItem(selectorData);
-        this.appState = EditState.INITIAL;
+      this.appsSelector.updateDisplayItem(selectorData);
+      this.appState = EditState.INITIAL;
     } else {
       selectorData = new SelectorData(data.username, data.userid, data);
-        this.usersSelector.updateDisplayItem(selectorData);
-        this.userState = EditState.INITIAL;
+      this.usersSelector.updateDisplayItem(selectorData);
+      this.userState = EditState.INITIAL;
 
     }
 

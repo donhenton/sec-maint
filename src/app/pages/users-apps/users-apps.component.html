@@ -20,10 +20,14 @@
     <div class="row">
       <app-basic-selector #appsSelector [editState]="this.appState" (selectEvent)="this.onSelectApp($event)"  [listData]="this.appData.appsData"></app-basic-selector>
     </div>
-   
+    <div class="row">
+      <button type="button" *ngIf="this.appState === 0" id="appAddlButton" (click)="this.onAddOrCancel({type:'Applications',request:'ADD'})"   class="btn btn-primary">Add</button>
+      <button type="button" *ngIf="this.appState !== 0" id="appCancelButton" (click)="this.onAddOrCancel({type:'Applications',request:'INITIAL'})"   class="btn btn-primary">Cancel</button>
+    
+    </div>
 
-  <div class="edit-form-container">
-
+  <div *ngIf="this.appState !== 0" class="edit-form-container">
+    
     <app-application-form (formAction)="this.handleFormAction($event)"  [editState]="this.appState" [selectedApp]="this.selectedApp"  ></app-application-form>
 
   </div>
