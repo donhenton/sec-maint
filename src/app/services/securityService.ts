@@ -83,6 +83,7 @@ export class SecurityService implements Resolve<any> {
         } else {
             const user: User = payload as User;
             if (action === EditState.ADD) {
+                user.userid = -1;
                 return this._http.post(this.URL_BASE + 'users/add', user);
             }
             if (action === EditState.EDIT) {

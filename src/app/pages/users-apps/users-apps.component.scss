@@ -2,7 +2,7 @@
     margin-top: 20px;
  
     padding: 10px;
-    border: thin solid blue;
+    border: thin solid #667467
 }
 
 .form-column {
@@ -17,4 +17,9 @@
     top:0;
     left: 0;
     height: 100%;
+}
+
+.selector-container {
+    padding: 5px;
+    border: thin solid#667467;
 }

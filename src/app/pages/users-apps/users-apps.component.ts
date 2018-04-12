@@ -71,6 +71,8 @@ export class UsersAppsComponent implements OnInit {
       action = this.userState;
     }
 
+    console.log('handleFormAction ' + action + ' ' + d.action);
+
     if (d.action === EditState.FORM_SAVE) {
       //   console.log('form asking for a save ' + JSON.stringify(d.newApp));
 
@@ -89,7 +91,7 @@ export class UsersAppsComponent implements OnInit {
 
 
       }, error => {
-        console.log('save problem ' + error.json());
+        console.log('save problem ' + JSON.stringify(error.json()));
         me.appState = EditState.INITIAL;
         if (d.type === EditType.Applications) {
           me.selectedApp = new Applications();
@@ -104,7 +106,7 @@ export class UsersAppsComponent implements OnInit {
 
     } else {
       // asking for a CANCEL
-
+      console.log('cancel 1 ' + JSON.stringify(d));
       if (d.type === EditType.Applications) {
         this.appState = EditState.INITIAL;
         me.selectedApp = new Applications();
@@ -172,17 +174,48 @@ export class UsersAppsComponent implements OnInit {
     if (this.whichFormIsActive() === EditType.Users && requestedType === EditType.Applications) {
       cssItems.push('form-non-active');
     }
-
-
     return cssItems;
-
   }
 
   onSelectUser(data) {
     this.userState = data.type;
     this.selectedUser = data.selected.ref;
+    const me = this;
 
-     console.log('selected uuu ' + JSON.stringify(this.selectedUser));
+    if (this.userState === EditState.DELETE) {
+      const message = `Do you wish to delete '${this.selectedUser.username}'?`;
+      this.alertService.confirm(message, function () {
+        // this is the yes branch
+        me.securityService.deleteUser(me.selectedUser).subscribe(d => {
+
+          const oldAppData = me.appData.getApplicatons();
+          me.securityService.getAllUsers().subscribe(users => {
+
+            me.appData = new AppData(oldAppData, users);
+            me.appState = EditState.INITIAL;
+            me.selectedUser = new User();
+
+          }, error => {
+            console.log(error.json());
+            me.appState = EditState.INITIAL;
+            me.selectedUser = new User();
+          });
+        });
+      }, function () {
+        // ACTION: Do this if user says NO
+        // console.log('got a no');
+        me.appState = EditState.INITIAL;
+        me.selectedUser = new User();
+      });
+
+
+
+    }
+
+
+
+
+
 
   }
 
