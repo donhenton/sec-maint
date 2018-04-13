@@ -29,16 +29,13 @@
         </div>
       
       </form>
-
-
-
-
-
-
      
     </div>
  
-
-
   </div>
+<div class="column50Right form-column">
+  <div class="row application-header" *ngIf="this.selectedGroup.id > -1">Applications Assigned to <span class="group-title">{{this.selectedGroup.groupName}}</span></div>
+</div>
+
+
   <app-alert></app-alert>
