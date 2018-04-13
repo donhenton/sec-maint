@@ -1,6 +1,4 @@
-<div class="row">
 
-  <div class="column50Left form-column">
     <h3>Groups [{{this.groupState}}]</h3>
     <div class="row selector-container">
     <app-basic-selector #groupSelector (selectEvent)="this.onSelectGroup($event)" [listData]="this.groupsData"></app-basic-selector>
@@ -32,10 +30,7 @@
      
     </div>
  
-  </div>
-<div class="column50Right form-column">
-  <div class="row application-header" *ngIf="this.selectedGroup.id > -1">Applications Assigned to <span class="group-title">{{this.selectedGroup.groupName}}</span></div>
-</div>
+
 
 
   <app-alert></app-alert>

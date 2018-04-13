@@ -14,10 +14,11 @@ import { ApplicationFormComponent } from './components/application-form/applicat
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { AlertService } from './services/alert.service';
-import { GroupMaintComponent } from './pages/group-maint/group-maint.component';
+import { GroupMaintComponent } from './components/group-maint/group-maint.component';
 import { AssignmentsComponent } from './pages/assignments/assignments.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { GroupMaintService } from './services/groupMaintService';
+import { GroupsPageComponent } from './pages/groups-page/groups-page.component';
 
 
 
@@ -30,7 +31,7 @@ const appRoutes: Routes = [
   },
 
   {
-    path: 'groupMaint', component: GroupMaintComponent,
+    path: 'groupMaint', component: GroupsPageComponent,
     resolve: { groupsData: GroupMaintService }
   },
 
@@ -59,6 +60,7 @@ const appRoutes: Routes = [
     GroupMaintComponent,
     AssignmentsComponent,
     MainPageComponent,
+    GroupsPageComponent,
 
   ],
   imports: [
