@@ -1,3 +1,44 @@
-<p>
-  group-maint works!
-</p>
+<div class="row">
+
+  <div class="column50Left form-column">
+    <h3>Groups [{{this.groupState}}]</h3>
+    <div class="row selector-container">
+    <app-basic-selector #groupSelector (selectEvent)="this.onSelectGroup($event)" [listData]="this.groupsData"></app-basic-selector>
+    </div>
+    <div class="row">
+      <button type="button" *ngIf="this.groupState === 0" id="groupAddlButton" (click)="this.onAddOrCancel('ADD')"   class="btn btn-primary">Add</button>
+      <button type="button" *ngIf="this.groupState === 1" id="groupCancelButton" (click)="this.onAddOrCancel('INITIAL')"   class="btn btn-primary">Cancel</button>
+    
+    </div>
+    <div *ngIf="this.groupState !== 0" class="edit-form-container">
+
+
+      <form  class="form well form-inline form-border"  [formGroup]="this.groupForm" (ngSubmit)="onFormSubmit()"> 
+  
+        <div class="row">
+          <label *ngIf="this.groupState > 1">ID: {{this.selectedGroup.id}}</label> <label class='pull-right'>[{{this.groupState}}]</label>
+          <label *ngIf="this.groupState === 1" class="add-label">(Enter new Group Name)</label>
+        </div>
+        <div class="row">
+          <label for="groupName">Group Name: </label>
+          <input type="text" size="70" id="groupName" formControlName="groupName">
+        </div>
+        <div class="row">
+          <button type="submit" id="groupSubmitButton" [disabled]="this.groupForm.invalid && !this.groupForm.dirty" class="btn btn-primary">Save</button>
+          <button type="button"  id="groupCancelButton" (click)="this.onFormCancel($event)"  class="btn btn-red">Cancel</button>
+        </div>
+      
+      </form>
+
+
+
+
+
+
+     
+    </div>
+ 
+
+
+  </div>
+  <app-alert></app-alert>

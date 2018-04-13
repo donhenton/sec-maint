@@ -10,4 +10,14 @@ export class Applications {
 }
 
 
+export class Group {
+ id: number ;
+ groupName: string;
+
+ constructor() {
+     this.id = -1;
+ }
+
+}
+
 

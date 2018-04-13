@@ -24,7 +24,8 @@ export class BasicSelectorComponent implements OnInit {
     this.selectEvent.emit({ type: EditState.DELETE, selected: selectedObj });
   }
 
-  updateDisplayItem(d: SelectorData, action: EditState) {
+  updateDisplayItem(d: any, action: EditState) {
+
     if (action === EditState.ADD) {
       this.listData.push(new SelectorData(d.name, d.id, d.ref));
     } else {

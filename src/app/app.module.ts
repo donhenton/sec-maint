@@ -17,6 +17,7 @@ import { AlertService } from './services/alert.service';
 import { GroupMaintComponent } from './pages/group-maint/group-maint.component';
 import { AssignmentsComponent } from './pages/assignments/assignments.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
+import { GroupMaintService } from './services/groupMaintService';
 
 
 
@@ -29,7 +30,8 @@ const appRoutes: Routes = [
   },
 
   {
-    path: 'groupMaint', component: GroupMaintComponent
+    path: 'groupMaint', component: GroupMaintComponent,
+    resolve: { groupsData: GroupMaintService }
   },
 
   {
@@ -66,7 +68,7 @@ const appRoutes: Routes = [
     BrowserModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [SecurityService, AlertService],
+  providers: [SecurityService, AlertService, GroupMaintService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
