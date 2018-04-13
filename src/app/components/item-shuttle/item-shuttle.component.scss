@@ -1,0 +1,14 @@
+.shuttle-box {
+    width: 370px;
+    font-size: 120%;
+    font-weight: bold;
+    option {
+        border-bottom: thin solid grey;
+        &[selected] {
+            color: white;
+            background-color: green
+        }
+    }
+    
+
+}

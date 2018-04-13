@@ -1,0 +1,11 @@
+<div class="row">
+  <select class="inGroup shuttle-box" *ngIf="this.shuttleItems" multiple="true" size="10" id="inApp">
+    <option *ngFor="let item of this.shuttleItems.inGroup" value="item.id">{{item.name}}</option>
+  </select>
+</div>
+
+<div class="row">
+    <select class="notInGroup shuttle-box"  *ngIf="this.shuttleItems" multiple="true" size="10" id="notInApp">
+      <option  *ngFor="let item of this.shuttleItems.notInGroup" value="item.id">{{item.name}}</option>
+    </select>
+  </div>

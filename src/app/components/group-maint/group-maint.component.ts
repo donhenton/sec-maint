@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { EditState, SelectorData, EditType } from '../../components/basic-selector/basic.interfaces';
 import { BasicSelectorComponent } from '../../components/basic-selector/basic-selector.component';
 import { Group } from '../../services/security.interfaces';
@@ -16,6 +16,7 @@ export class GroupMaintComponent implements OnInit {
 
   selectedGroup: Group = new Group();
   groupState: EditState = EditState.INITIAL;
+  @Output() selectEvent = new EventEmitter<any>();
   groupForm: FormGroup;
   groupsData: SelectorData[];
   @ViewChild('groupSelector') groupSelector: BasicSelectorComponent;
@@ -103,6 +104,8 @@ export class GroupMaintComponent implements OnInit {
             me.groupState = EditState.INITIAL;
             me.selectedGroup = new Group();
             me.generateSelectorData(groups);
+            me.selectEvent.emit({group: null, action: EditState.DELETE});
+
 
           }, error => {
             console.log(JSON.stringify(error.json()));
@@ -121,6 +124,7 @@ export class GroupMaintComponent implements OnInit {
     } else {
       // asking for a select
       this.groupForm.reset({ groupName: this.selectedGroup.groupName });
+      this.selectEvent.emit({group: this.selectedGroup, action: EditState.EDIT});
     }
 
 

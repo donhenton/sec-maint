@@ -19,6 +19,7 @@ import { AssignmentsComponent } from './pages/assignments/assignments.component'
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { GroupMaintService } from './services/groupMaintService';
 import { GroupsPageComponent } from './pages/groups-page/groups-page.component';
+import { ItemShuttleComponent } from './components/item-shuttle/item-shuttle.component';
 
 
 
@@ -61,6 +62,7 @@ const appRoutes: Routes = [
     AssignmentsComponent,
     MainPageComponent,
     GroupsPageComponent,
+    ItemShuttleComponent,
 
   ],
   imports: [

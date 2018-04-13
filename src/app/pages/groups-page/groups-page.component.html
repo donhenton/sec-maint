@@ -2,12 +2,23 @@
 
   <div class="column50Left form-column">
 
- <app-group-maint #appGroupMaintainer></app-group-maint>
+    <app-group-maint (selectEvent)="this.handleGroupSelect($event)" #appGroupMaintainer></app-group-maint>
   </div>
-  
+
   <div class="column50Right form-column">
-  
-    <div class="row application-header" *ngIf="this.groupMaintainer.selectedGroup.id > -1">Applications Assigned to <span class="group-title">{{this.groupMaintainer.selectedGroup.groupName}}</span></div>
+
+    <div class="row application-header" *ngIf="this.groupMaintainer.selectedGroup.id > -1">
+      Applications Assigned to
+      <span class="group-title">{{this.groupMaintainer.selectedGroup.groupName}}</span>
+    </div>
+
+
+    <div>
+      <app-item-shuttle  [shuttleItems]="this.applicationData" ></app-item-shuttle>
+    </div>
+
+
+
   </div>
 
 </div>
