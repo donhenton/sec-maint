@@ -8,18 +8,37 @@ import { AppComponent } from './app.component';
 import { DropdownDirective } from './components/dropdown/dropdown.directive';
 import { MenuDirective } from './components/dropdown/menu.directive';
 import { UsersAppsComponent } from './pages/users-apps/users-apps.component';
-import {SecurityService} from './services/securityService';
+import { SecurityService } from './services/securityService';
 import { BasicSelectorComponent } from './components/basic-selector/basic-selector.component';
 import { ApplicationFormComponent } from './components/application-form/application-form.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { AlertService } from './services/alert.service';
+import { GroupMaintComponent } from './pages/group-maint/group-maint.component';
+import { AssignmentsComponent } from './pages/assignments/assignments.component';
+import { MainPageComponent } from './pages/main-page/main-page.component';
+
 
 
 
 const appRoutes: Routes = [
 
-  { path: 'usersApps', component: UsersAppsComponent , resolve: {usersAppsData: SecurityService }},
+  {
+    path: 'usersApps', component: UsersAppsComponent,
+    resolve: { usersAppsData: SecurityService }
+  },
+
+  {
+    path: 'groupMaint', component: GroupMaintComponent
+  },
+
+  {
+    path: 'assignments', component: AssignmentsComponent
+  },
+// { path: '', redirectTo: '/home', pathMatch: 'full' },
+  {
+    path: '', component: MainPageComponent
+  },
 
 ];
 
@@ -34,7 +53,11 @@ const appRoutes: Routes = [
     BasicSelectorComponent,
     ApplicationFormComponent,
     UserFormComponent,
-    AlertComponent
+    AlertComponent,
+    GroupMaintComponent,
+    AssignmentsComponent,
+    MainPageComponent,
+
   ],
   imports: [
     FormsModule,
