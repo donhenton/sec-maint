@@ -66,7 +66,6 @@ export class ItemShuttleComponent implements OnInit, OnChanges {
       const newP = new ShuttleData(p.name, p.id, p.ref, p.source);
       return newP;
     });
-    console.log(selectedNotInGroupItems);
     this.inGroupSelector.addItems(selectedNotInGroupItems);
     this.notInGroupSelector.removeSelectedItems();
     this.notInGroupSelector.clearSelection();
