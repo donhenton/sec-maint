@@ -1,6 +1,5 @@
 .shuttle-item-selector {
-   margin-left: 10px;
-
+    margin-left: 10px;
     .shuttle-box {
         width: 100%;
         font-size: 75%;
@@ -12,9 +11,21 @@
                 background-color: green
             }
         }
-        
+    }
     
+    select *.chosen:checked {
+        background-color: green;
+        color:#FFF;
     }
 
-}
 
+
+    .option-item {
+        &.chosen {
+            &:checked {
+                font-style: italic;
+               
+            }
+        }
+    }
+}

@@ -8,9 +8,19 @@
 }
 
 .shuttle-action-row {
-   
     text-align: center;
-     i {
-         font-size: 30px;
-     }
+    i {
+        font-size: 30px;
+    }
+}
+
+button.shuttle-button-inactive {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    &:hover {
+        background-color: #cccccc;
+        color: #666666;
+    }
 }
