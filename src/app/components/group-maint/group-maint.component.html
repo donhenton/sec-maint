@@ -1,7 +1,7 @@
 
     <h3>Groups [{{this.groupState}}]</h3>
     <div class="row selector-container">
-    <app-basic-selector #groupSelector (selectEvent)="this.onSelectGroup($event)" [listData]="this.groupsData"></app-basic-selector>
+    <app-basic-selector  #groupSelector [selectorStyles] = '{height: "150px"}' (selectEvent)="this.onSelectGroup($event)" [listData]="this.groupsData"></app-basic-selector>
     </div>
     <div class="row">
       <button type="button" *ngIf="this.groupState === 0" id="groupAddlButton" (click)="this.onAddOrCancel('ADD')"   class="btn btn-primary">Add</button>

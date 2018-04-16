@@ -1,11 +1,11 @@
 <div class="row">
 
-  <div class="column50Left form-column">
+  <div class="column70Left form-column">
 
     <app-group-maint (selectEvent)="this.handleGroupSelect($event)" #appGroupMaintainer></app-group-maint>
   </div>
 
-  <div class="column50Right form-column">
+  <div class="column30Right form-column">
 
     <div class="row application-header" *ngIf="this.groupMaintainer.selectedGroup.id > -1">
       Applications Assigned to

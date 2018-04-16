@@ -18,6 +18,7 @@ export class GroupsPageComponent implements OnInit {
 
   applicationData: ShuttleStructure;
   @ViewChild('appGroupMaintainer') groupMaintainer: GroupMaintComponent;
+  selectorHeight = '250px';
   constructor(private groupService: GroupMaintService) {
 
 

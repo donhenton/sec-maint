@@ -11,6 +11,7 @@ export class BasicSelectorComponent implements OnInit {
   @Input() listData: SelectorData[];
   @Input() editState: EditState = EditState.INITIAL;
   @Output() selectEvent: any = new EventEmitter<any>();
+  @Input() selectorStyles = {height: '270px'};
 
   constructor() { }
 
