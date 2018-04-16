@@ -19,9 +19,9 @@ export class ItemShuttleComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-   // console.log(JSON.stringify(changes));
-    if (changes.shuttleItems) {
-      console.log(changes.shuttleItems);
+
+    if (changes.shuttleMetaData) {
+     // console.log(changes.shuttleMetaData);
 
     }
 

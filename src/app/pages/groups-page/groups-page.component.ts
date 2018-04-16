@@ -19,7 +19,7 @@ export class GroupsPageComponent implements OnInit {
   applicationData: ShuttleStructure;
   @ViewChild('appGroupMaintainer') groupMaintainer: GroupMaintComponent;
 
-  shuttleMetaData = {assignedTo: EditType[EditType.Applications]};
+  shuttleMetaData = {assignedTo: EditType[EditType.Applications], selectedGroup: ''};
 
 
 
@@ -37,7 +37,7 @@ export class GroupsPageComponent implements OnInit {
     if (data.action === EditState.EDIT) {
       this.groupService.getApplicationsDataForGroup(data.group).subscribe(successData => {
         me.applicationData = new ShuttleStructure(successData[0], successData[1], EditType.Applications);
-
+        me.shuttleMetaData  = {assignedTo: EditType[EditType.Applications], selectedGroup: data.group.groupName};
 
       }, error => {
 

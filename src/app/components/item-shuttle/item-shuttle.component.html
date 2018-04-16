@@ -1,15 +1,23 @@
 <div class="row application-header">
-  Assigned  <span class="group-title">{{this.shuttleMetaData.assignedTo}}</span>
+   <span class="group-title">{{this.shuttleMetaData.assignedTo}}</span> AssignedTo 
+   
 </div>
 
 
 
 <div *ngIf="this.shuttleItems" class="shuttle-group">
-  <div class="shuttle-sub-header">In this group</div>
+  <div class="shuttle-sub-header">In  group {{this.shuttleMetaData.selectedGroup}}</div>
   <shuttle-item-selector [shuttleData]="this.shuttleItems.inGroup"></shuttle-item-selector>
 </div>
 
+
+<div *ngIf="this.shuttleItems" class="shuttle-group shuttle-action-row">
+     <button class="btn btn-small btn-primary"><i class="fi-arrow-up"></i></button>
+     <button class="btn btn-small btn-primary"><i class="fi-arrow-down"></i></button>
+</div>
+
+
 <div *ngIf="this.shuttleItems" class="shuttle-group">
-  <div class="shuttle-sub-header">Not in this group</div>
+  <div class="shuttle-sub-header">Not in group {{this.shuttleMetaData.selectedGroup}}</div>
   <shuttle-item-selector [shuttleData]="this.shuttleItems.notInGroup"></shuttle-item-selector>
 </div>
