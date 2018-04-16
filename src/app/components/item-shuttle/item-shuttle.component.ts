@@ -12,11 +12,14 @@ export class ItemShuttleComponent implements OnInit, OnChanges {
   constructor() { }
 
   @Input() shuttleItems: ShuttleStructure;
+  @Input() shuttleMetaData: any = {assignedTo: '<assignedTo>'};
+
+
   ngOnInit() {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-
+   // console.log(JSON.stringify(changes));
     if (changes.shuttleItems) {
       console.log(changes.shuttleItems);
 

@@ -20,6 +20,7 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { GroupMaintService } from './services/groupMaintService';
 import { GroupsPageComponent } from './pages/groups-page/groups-page.component';
 import { ItemShuttleComponent } from './components/item-shuttle/item-shuttle.component';
+import { ItemSelectorComponent } from './components/item-shuttle/item-selector/item-selector.component';
 
 
 
@@ -63,6 +64,7 @@ const appRoutes: Routes = [
     MainPageComponent,
     GroupsPageComponent,
     ItemShuttleComponent,
+    ItemSelectorComponent,
 
   ],
   imports: [

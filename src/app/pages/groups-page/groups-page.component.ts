@@ -18,7 +18,11 @@ export class GroupsPageComponent implements OnInit {
 
   applicationData: ShuttleStructure;
   @ViewChild('appGroupMaintainer') groupMaintainer: GroupMaintComponent;
-  selectorHeight = '250px';
+
+  shuttleMetaData = {assignedTo: EditType[EditType.Applications]};
+
+
+
   constructor(private groupService: GroupMaintService) {
 
 
@@ -37,7 +41,7 @@ export class GroupsPageComponent implements OnInit {
 
       }, error => {
 
-        console.error(JSON.stringify(error.json()));
+        console.error('ERROR in groups-page\n' + JSON.stringify(error.json()));
 
       });
 

@@ -1,14 +1,8 @@
-.shuttle-box {
-    width: 270px;
-    font-size: 120%;
-    font-weight: bold;
-    option {
-        border-bottom: thin solid grey;
-        &[selected] {
-            color: white;
-            background-color: green
-        }
-    }
-    
+.shuttle-group {
+    margin-top: 15px;
+}
 
+.shuttle-sub-header {
+    font-size: 75%;
+    margin-bottom: 15px;
 }

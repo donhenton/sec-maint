@@ -1,11 +1,15 @@
-<div class="row">
-  <select class="inGroup shuttle-box" *ngIf="this.shuttleItems" multiple="true" size="5" id="inApp">
-    <option *ngFor="let item of this.shuttleItems.inGroup" value="item.id">{{item.name}}</option>
-  </select>
+<div class="row application-header">
+  Assigned  <span class="group-title">{{this.shuttleMetaData.assignedTo}}</span>
 </div>
 
-<div class="row">
-    <select class="notInGroup shuttle-box"  *ngIf="this.shuttleItems" multiple="true" size="5" id="notInApp">
-      <option n *ngFor="let item of this.shuttleItems.notInGroup" value="item.id">{{item.name}}</option>
-    </select>
-  </div>
+
+
+<div *ngIf="this.shuttleItems" class="shuttle-group">
+  <div class="shuttle-sub-header">In this group</div>
+  <shuttle-item-selector [shuttleData]="this.shuttleItems.inGroup"></shuttle-item-selector>
+</div>
+
+<div *ngIf="this.shuttleItems" class="shuttle-group">
+  <div class="shuttle-sub-header">Not in this group</div>
+  <shuttle-item-selector [shuttleData]="this.shuttleItems.notInGroup"></shuttle-item-selector>
+</div>

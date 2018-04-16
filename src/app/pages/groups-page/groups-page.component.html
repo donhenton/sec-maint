@@ -8,13 +8,12 @@
   <div class="column30Right form-column">
 
     <div class="row application-header" *ngIf="this.groupMaintainer.selectedGroup.id > -1">
-      Applications Assigned to
-      <span class="group-title">{{this.groupMaintainer.selectedGroup.groupName}}</span>
+      <app-item-shuttle [shuttleMetaData]="this.shuttleMetaData" [shuttleItems]="this.applicationData" ></app-item-shuttle>
     </div>
 
 
     <div>
-      <app-item-shuttle  [shuttleItems]="this.applicationData" ></app-item-shuttle>
+     
     </div>
 
 
