@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges, ViewChild, EventEmitter, Output } from '@angular/core';
-import { ShuttleData, GROUP_MEMBERSHIP } from '../shuttle.interfaces';
+import { ShuttleData, GROUP_MEMBERSHIP, ActionItems} from '../shuttle.interfaces';
 import { SelectControlValueAccessor, NgForm } from '@angular/forms';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
@@ -112,8 +112,17 @@ export class ItemSelectorComponent implements OnInit, OnChanges {
     });
     this.selectedItems = [];
     this.selectorForm.reset(this.selectedItems);
+  }
 
 
+  findActionItems(): ActionItems {
+    const me = this;
+    const actionItems: ShuttleData[] = this.shuttleBuffer.filter(a => {
+    //  console.log(`comparing ${a.source} to ${me.groupMemberShip}`);
+      return a.source !== me.groupMemberShip;
+    });
+
+    return new ActionItems(me.groupMemberShip, actionItems);
   }
 
 

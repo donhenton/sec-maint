@@ -13,6 +13,7 @@ import { BasicSelectorComponent } from './components/basic-selector/basic-select
 import { ApplicationFormComponent } from './components/application-form/application-form.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { AlertComponent } from './components/alert/alert.component';
+import { GroupMaintAlertComponent } from './components/group-maint-alert/group-maint-alert.component';
 import { AlertService } from './services/alert.service';
 import { GroupMaintComponent } from './components/group-maint/group-maint.component';
 import { AssignmentsComponent } from './pages/assignments/assignments.component';
@@ -61,6 +62,7 @@ const appRoutes: Routes = [
     ApplicationFormComponent,
     UserFormComponent,
     AlertComponent,
+    GroupMaintAlertComponent,
     GroupMaintComponent,
     AssignmentsComponent,
     MainPageComponent,

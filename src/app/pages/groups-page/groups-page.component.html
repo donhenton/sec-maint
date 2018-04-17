@@ -8,7 +8,7 @@
   <div class="column30Right form-column">
 
     <div class="row application-header" *ngIf="this.groupMaintainer.selectedGroup.id > -1">
-      <app-item-shuttle [maintType]="this.maintType" [shuttleMetaData]="this.shuttleMetaData" [shuttleItems]="this.applicationData" ></app-item-shuttle>
+      <app-item-shuttle (shuttleEvent)="onShuttleEvent($event)" [maintType]="this.maintType" [shuttleMetaData]="this.shuttleMetaData" [shuttleItems]="this.applicationData" ></app-item-shuttle>
     </div>
 
 
@@ -21,4 +21,4 @@
   </div>
 
 </div>
-<app-alert></app-alert>  
+ <group-maint-alert></group-maint-alert>

@@ -12,7 +12,7 @@ export class ShuttleData {
     isSelected: boolean;
     public willBeAdded: boolean;
     public willBeRemoved: boolean;
-    public source = null;
+    public source: GROUP_MEMBERSHIP = null;
 
     constructor(name: string, id: number, ref: any, source: GROUP_MEMBERSHIP) {
         this.name = name;
@@ -23,6 +23,16 @@ export class ShuttleData {
     }
 }
 
+export class ActionItems {
+
+    source: GROUP_MEMBERSHIP;
+    items: ShuttleData[];
+    constructor(s: GROUP_MEMBERSHIP, i: ShuttleData[]) {
+        this.source = s;
+        this.items = i;
+
+    }
+}
 
 export class ShuttleStructure {
     inGroup: ShuttleData[];

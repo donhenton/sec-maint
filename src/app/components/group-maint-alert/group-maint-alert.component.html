@@ -1,0 +1,36 @@
+<div *ngIf="this.displayData.type === 'confirm'" class="popup-component">
+
+
+
+    <div class="popup-overlay show">
+        <div class="popup-dialog popup-show">
+                <div class="listing-group">
+                        <h2>Do You Wish To Perform This Action?</h2>
+                    </div>
+            <div class='group-selections'>
+                <div *ngIf="this.displayData.data.inActions.items.length > 0" class="listing-group">
+                    <h4>These {{this.displayData.maintType}} will be added to {{this.displayData.selectedGroup.groupName}}</h4>
+                    <ul class="basic-list">
+                        <li *ngFor="let addItem of this.displayData.data.inActions.items">{{addItem.name}}</li>
+                    </ul>
+                </div>
+                <div *ngIf="this.displayData.data.notInActions.items.length > 0" class="listing-group">
+                        <h4>These {{this.displayData.maintType}} will be removed from {{this.displayData.selectedGroup.groupName}}</h4>
+                    <ul class="basic-list">
+                        <li *ngFor="let removeItem of this.displayData.data.notInActions.items">{{removeItem.name}}</li>
+                    </ul>
+                </div>
+                
+            </div>
+            <div class="row button-row">
+                <a (click)="displayData.noFn()">
+                    <button class="btn btn-red">No</button>
+                </a>
+                <a (click)="displayData.siFn()">
+                    <button class="btn btn-primary">Yes</button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>

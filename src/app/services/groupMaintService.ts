@@ -9,9 +9,11 @@ import { Group } from './security.interfaces';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { SecurityService } from './securityService';
 import { EditState, EditType } from '../components/basic-selector/basic.interfaces';
+import { ActionItems } from '../components/item-shuttle/shuttle.interfaces';
 
 @Injectable()
 export class GroupMaintService implements Resolve<any> {
+
 
     private readonly URL_BASE = environment.securityAPIURL; // users/all
     constructor(private _http: Http, private securityService: SecurityService) { }
@@ -20,8 +22,8 @@ export class GroupMaintService implements Resolve<any> {
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
 
         const me = this;
-        const maintType: EditType =   route.data['maintType'];
-     //   if (maintType === EditType.Applications)
+        const maintType: EditType = route.data['maintType'];
+        //   if (maintType === EditType.Applications)
         return this.getAllGroups(maintType);
 
     }
@@ -32,8 +34,8 @@ export class GroupMaintService implements Resolve<any> {
         const me = this;
         return this._http.get(this.URL_BASE + 'groups/all', this.securityService.createRequestOpts())
             .map(res => res.json())
-            .map((d) =>  {
-                return {groupsData: d, maintType: maintType};
+            .map((d) => {
+                return { groupsData: d, maintType: maintType };
             });
 
 
@@ -82,6 +84,31 @@ export class GroupMaintService implements Resolve<any> {
         return Observable.forkJoin(me.getApplicationsInGroup(g),
             me.getApplicationsNotInGroup(g));
 
+
+    }
+
+    maintainGroups(inActions: ActionItems, notInActions: ActionItems, type: EditType, currentGroup: Group): void {
+        if (type === EditType.Applications) {
+            const urlCalls = [];
+            // remove calls
+            notInActions.items.forEach(app => {
+                const removeUrl = this.URL_BASE + `groups/removeApplication/${app.id}/${currentGroup.id}`;
+                // console.log(`doing remove ${removeUrl} ${app.name}`);
+                urlCalls.push(removeUrl);
+            });
+
+            inActions.items.forEach(app => {
+                const addUrl = this.URL_BASE + `groups/addApplication/${app.id}/${currentGroup.id}`;
+                // console.log(`doing add ${addUrl} ${app.name}`);
+                urlCalls.push(addUrl);
+            });
+
+
+        } else {
+            // handle users
+
+
+        }
 
     }
 

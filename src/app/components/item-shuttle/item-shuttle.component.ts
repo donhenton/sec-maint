@@ -1,7 +1,11 @@
-import { Component, OnInit, Input, OnChanges, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';
-import { ShuttleData, ShuttleStructure, GROUP_MEMBERSHIP } from './shuttle.interfaces';
+import { Component, OnInit, Input, OnChanges, SimpleChange, SimpleChanges, ViewChild, EventEmitter, Output } from '@angular/core';
+import { ShuttleData, ShuttleStructure, GROUP_MEMBERSHIP, ActionItems } from './shuttle.interfaces';
 import { ItemSelectorComponent } from './item-selector/item-selector.component';
 import { EditType } from '../basic-selector/basic.interfaces';
+import { Action } from 'rxjs/scheduler/Action';
+import { AlertService } from '../../services/alert.service';
+import { GroupMaintService } from '../../services/groupMaintService';
+
 
 @Component({
   selector: 'app-item-shuttle',
@@ -10,17 +14,15 @@ import { EditType } from '../basic-selector/basic.interfaces';
 })
 export class ItemShuttleComponent implements OnInit, OnChanges {
 
-
-  constructor() { }
-
   @Input() shuttleItems: ShuttleStructure;
   @Input() maintType: EditType;
   @Input() shuttleMetaData: any = { assignedTo: '<assignedTo>' };
   @ViewChild('selectorInGroup') inGroupSelector: ItemSelectorComponent;
   @ViewChild('selectorNotInGroup') notInGroupSelector: ItemSelectorComponent;
+  @Output() shuttleEvent: EventEmitter<any> = new EventEmitter<any>();
 
-  ngOnInit() {
-  }
+  constructor(private alertService: AlertService, private groupService: GroupMaintService) { }
+  ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges): void {
 
@@ -70,6 +72,35 @@ export class ItemShuttleComponent implements OnInit, OnChanges {
     this.inGroupSelector.addItems(selectedNotInGroupItems);
     this.notInGroupSelector.removeSelectedItems();
     this.notInGroupSelector.clearSelection();
+
+  }
+
+  performUpdates(inActions, notInActions): void {
+    console.log('got a yes');
+    this.groupService.maintainGroups(inActions, notInActions,
+      this.maintType, this.shuttleMetaData.selectedGroup);
+  }
+
+
+  handleShuttleUpdate() {
+    const notInActions: ActionItems = this.notInGroupSelector.findActionItems();
+    const inActions: ActionItems = this.inGroupSelector.findActionItems();
+    const me = this;
+    const yesFunction = function() {
+      me.performUpdates(inActions, notInActions);
+    };
+    const noFunction = function() { console.log('got a no'); };
+
+    const data = {data: {inActions, notInActions}, maintType: EditType[this.maintType],
+         selectedGroup: this.shuttleMetaData.selectedGroup};
+    this.alertService.confirmGroup(data, yesFunction, noFunction);
+
+
+    // console.log(`you are processing ${EditType[this.maintType]}`);
+    // this.notInGroupSelector.clearSelection();
+    // this.inGroupSelector.clearSelection();
+    // this.reloadShuttleItems();
+   // this.shuttleEvent.emit({ 'request': 'reloadShuttleItems' });
 
   }
 

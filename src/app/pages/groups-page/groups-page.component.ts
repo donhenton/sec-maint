@@ -38,13 +38,22 @@ export class GroupsPageComponent implements OnInit {
 
   }
 
+  /**
+   *
+   * @param ev {'request': 'reloadShuttleItems'}
+   */
+  onShuttleEvent(ev: any) {
+    console.log(`shuttleEvent ${JSON.stringify(ev)}`);
+  }
+
   // {group null if DELETE, else selectedGroup, action EditState.EDIT or DELETE}
   handleGroupSelect(data) {
     const me = this;
     if (data.action === EditState.EDIT) {
       this.groupService.getApplicationsDataForGroup(data.group).subscribe(successData => {
         me.applicationData = new ShuttleStructure(successData[0], successData[1], EditType.Applications);
-        me.shuttleMetaData.selectedGroup = data.group.groupName;
+        me.shuttleMetaData.selectedGroup = data.group;
+
 
       }, error => {
 

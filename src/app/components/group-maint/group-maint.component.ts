@@ -34,8 +34,8 @@ export class GroupMaintComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.initialGroupsData) {
 
-     // console.log(changes.initialGroupsData);
-     this.generateSelectorData(changes.initialGroupsData.currentValue);
+      // console.log(changes.initialGroupsData);
+      this.generateSelectorData(changes.initialGroupsData.currentValue);
     }
 
   }
@@ -84,9 +84,13 @@ export class GroupMaintComponent implements OnInit, OnChanges {
   }
 
   generateSelectorData(data) {
-    this.groupsData = data.map(d => {
-      return new SelectorData(d.groupName, d.id, d);
-    });
+    if (data) {
+      this.groupsData = data.map(d => {
+        return new SelectorData(d.groupName, d.id, d);
+      });
+    } else {
+      this.groupsData = [];
+    }
   }
 
   onSelectGroup(data) {
@@ -106,7 +110,7 @@ export class GroupMaintComponent implements OnInit, OnChanges {
             me.groupState = EditState.INITIAL;
             me.selectedGroup = new Group();
             me.generateSelectorData(groups);
-            me.selectEvent.emit({group: null, action: EditState.DELETE});
+            me.selectEvent.emit({ group: null, action: EditState.DELETE });
 
 
           }, error => {
@@ -126,7 +130,7 @@ export class GroupMaintComponent implements OnInit, OnChanges {
     } else {
       // asking for a select
       this.groupForm.reset({ groupName: this.selectedGroup.groupName });
-      this.selectEvent.emit({group: this.selectedGroup, action: EditState.EDIT});
+      this.selectEvent.emit({ group: this.selectedGroup, action: EditState.EDIT });
     }
 
 
@@ -136,24 +140,24 @@ export class GroupMaintComponent implements OnInit, OnChanges {
 
   createGroupForm() {
 
-    this.groupForm = this.formBuilder.group({
-      groupName: ['', Validators.required]
-    });
+  this.groupForm = this.formBuilder.group({
+    groupName: ['', Validators.required]
+  });
 
 
 
-  }
+}
 
 
-  // this handles the add/cancel for the add action
+// this handles the add/cancel for the add action
 
-  onAddOrCancel(d) {
+onAddOrCancel(d) {
 
-    const requestedType: EditType = Number(EditType[d.type]);
-    const requestedAction: EditState = Number(EditState[d]);
-    this.groupState = requestedAction;
+  const requestedType: EditType = Number(EditType[d.type]);
+  const requestedAction: EditState = Number(EditState[d]);
+  this.groupState = requestedAction;
 
-  }
+}
 
 
 }
