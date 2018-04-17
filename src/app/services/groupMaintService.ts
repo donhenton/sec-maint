@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
+import { mergeMap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 // tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs/Rx'; // NOT from 'rxjs/Rx/Observable
@@ -87,21 +88,33 @@ export class GroupMaintService implements Resolve<any> {
 
     }
 
-    maintainGroups(inActions: ActionItems, notInActions: ActionItems, type: EditType, currentGroup: Group): void {
+    maintainGroups(inActions: ActionItems, notInActions: ActionItems,
+        type: EditType, currentGroup: Group): Observable<any> {
+            const me = this;
         if (type === EditType.Applications) {
             const urlCalls = [];
             // remove calls
             notInActions.items.forEach(app => {
-                const removeUrl = this.URL_BASE + `groups/removeApplication/${app.id}/${currentGroup.id}`;
+                const removeUrl = this.URL_BASE + `groups/removeApplication/${app.id}/group/${currentGroup.id}`;
                 // console.log(`doing remove ${removeUrl} ${app.name}`);
                 urlCalls.push(removeUrl);
             });
 
             inActions.items.forEach(app => {
-                const addUrl = this.URL_BASE + `groups/addApplication/${app.id}/${currentGroup.id}`;
+                const addUrl = this.URL_BASE + `groups/addApplication/${app.id}/group/${currentGroup.id}`;
                 // console.log(`doing add ${addUrl} ${app.name}`);
                 urlCalls.push(addUrl);
             });
+// https://blog.angularindepth.com/practical-rxjs-in-the-wild-requests-with-concatmap-vs-mergemap-vs-forkjoin-11e5b2efe293
+
+           return Observable.from(urlCalls).pipe(
+
+               mergeMap((url, index) => {
+                  return me._http.put(url, null);
+               })
+
+           ); // end pipe
+
 
 
         } else {

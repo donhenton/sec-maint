@@ -22,7 +22,7 @@ export class ItemShuttleComponent implements OnInit, OnChanges {
   @Output() shuttleEvent: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private alertService: AlertService, private groupService: GroupMaintService) { }
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngOnChanges(changes: SimpleChanges): void {
 
@@ -78,7 +78,17 @@ export class ItemShuttleComponent implements OnInit, OnChanges {
   performUpdates(inActions, notInActions): void {
     console.log('got a yes');
     this.groupService.maintainGroups(inActions, notInActions,
-      this.maintType, this.shuttleMetaData.selectedGroup);
+      this.maintType, this.shuttleMetaData.selectedGroup)
+      .subscribe(success => {
+
+        console.log('success ' + JSON.stringify(success));
+      },
+        error => {
+          console.error('error ' + JSON.stringify(error.json()));
+        }
+
+      )
+      ;
   }
 
 
@@ -86,13 +96,15 @@ export class ItemShuttleComponent implements OnInit, OnChanges {
     const notInActions: ActionItems = this.notInGroupSelector.findActionItems();
     const inActions: ActionItems = this.inGroupSelector.findActionItems();
     const me = this;
-    const yesFunction = function() {
+    const yesFunction = function () {
       me.performUpdates(inActions, notInActions);
     };
-    const noFunction = function() { console.log('got a no'); };
+    const noFunction = function () { console.log('got a no'); };
 
-    const data = {data: {inActions, notInActions}, maintType: EditType[this.maintType],
-         selectedGroup: this.shuttleMetaData.selectedGroup};
+    const data = {
+      data: { inActions, notInActions }, maintType: EditType[this.maintType],
+      selectedGroup: this.shuttleMetaData.selectedGroup
+    };
     this.alertService.confirmGroup(data, yesFunction, noFunction);
 
 
@@ -100,7 +112,7 @@ export class ItemShuttleComponent implements OnInit, OnChanges {
     // this.notInGroupSelector.clearSelection();
     // this.inGroupSelector.clearSelection();
     // this.reloadShuttleItems();
-   // this.shuttleEvent.emit({ 'request': 'reloadShuttleItems' });
+    // this.shuttleEvent.emit({ 'request': 'reloadShuttleItems' });
 
   }
 

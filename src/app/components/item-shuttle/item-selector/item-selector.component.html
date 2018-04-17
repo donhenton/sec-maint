@@ -1,7 +1,7 @@
 <form #f="ngForm">
 <div class="shuttle-item-selector">
   <select class="noselect shuttle-box" name="selectedItems" ngModel [compareWith]="compareFn"  (change)="this.onItemSelect($event)" *ngIf="this.shuttleBuffer" multiple="true" size="5" id={{this.computeId()}}>
-      <option class="{{this.computeOptionCss(item)}}" *ngFor="let item of this.getFilteredShuttleBuffer()" [ngValue]="item">{{item.name}} {{item.source}}</option>
+      <option class="{{this.computeOptionCss(item)}}" *ngFor="let item of this.getFilteredShuttleBuffer()" [ngValue]="item">{{item.name}} id {{item.id}}</option>
   </select>
 </div>
 
