@@ -19,29 +19,22 @@ export class GroupsPageComponent implements OnInit {
 
   applicationData: ShuttleStructure;
   @ViewChild('appGroupMaintainer') groupMaintainer: GroupMaintComponent;
-  shuttleMetaData = {assignedTo: EditType[EditType.Applications], selectedGroup: ''};
+  shuttleMetaData = {assignedTo: 'n/a', selectedGroup: ''};
   groupsData: Group[];
   maintType: EditType;
 
 
-  constructor(private groupService: GroupMaintService, private route: ActivatedRoute, ) {
-
-
-  }
+  constructor(private groupService: GroupMaintService, private route: ActivatedRoute, ) {}
 
   ngOnInit() {
      const me = this;
     this.route.data
     .subscribe((data) => {
-      // this.appData = new AppData(data.usersAppsData[0], data.usersAppsData[1]);
-      // me.generateSelectorData(data.groupsData.groupsData);
       me.groupsData = data.groupsData.groupsData;
       me.maintType = data.maintType;
+      me.shuttleMetaData.assignedTo  = EditType[me.maintType];
 
     });
-
-
-
 
   }
 
@@ -51,7 +44,7 @@ export class GroupsPageComponent implements OnInit {
     if (data.action === EditState.EDIT) {
       this.groupService.getApplicationsDataForGroup(data.group).subscribe(successData => {
         me.applicationData = new ShuttleStructure(successData[0], successData[1], EditType.Applications);
-        me.shuttleMetaData  = {assignedTo: EditType[EditType.Applications], selectedGroup: data.group.groupName};
+        me.shuttleMetaData.selectedGroup = data.group.groupName;
 
       }, error => {
 

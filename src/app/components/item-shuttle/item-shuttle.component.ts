@@ -15,7 +15,7 @@ export class ItemShuttleComponent implements OnInit, OnChanges {
 
   @Input() shuttleItems: ShuttleStructure;
   @Input() maintType: EditType;
-  @Input() shuttleMetaData: any = {assignedTo: '<assignedTo>'};
+  @Input() shuttleMetaData: any = { assignedTo: '<assignedTo>' };
   @ViewChild('selectorInGroup') inGroupSelector: ItemSelectorComponent;
   @ViewChild('selectorNotInGroup') notInGroupSelector: ItemSelectorComponent;
 
@@ -24,13 +24,13 @@ export class ItemShuttleComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
 
-    if (changes.shuttleMetaData) {
-     // console.log(changes.shuttleMetaData);
-
+    if (changes.shuttleItems && changes.shuttleItems.firstChange === false) {
+      if (this.notInGroupSelector) {
+        this.notInGroupSelector.clearSelection();
+        this.inGroupSelector.clearSelection();
+      }
     }
-
   }
-
   /**
    *
    * @param type In or NotIn the group you check to see if it has any selections
@@ -41,20 +41,19 @@ export class ItemShuttleComponent implements OnInit, OnChanges {
       return 'shuttle-button-inactive';
     }
     if (type === 'NotIn') {
-      selectionCount = this.notInGroupSelector.getSelectedItems() ?  this.notInGroupSelector.getSelectedItems().length : 0;
+      selectionCount = this.notInGroupSelector.getSelectedItems() ? this.notInGroupSelector.getSelectedItems().length : 0;
     } else {
-      selectionCount = this.inGroupSelector.getSelectedItems() ?  this.inGroupSelector.getSelectedItems().length : 0;
+      selectionCount = this.inGroupSelector.getSelectedItems() ? this.inGroupSelector.getSelectedItems().length : 0;
     }
-    // console.log(`selectionCount ${selectionCount}`);
-    if  (selectionCount === 0) {
+    // console.log(`selectionCount ${selectionCount} ${type}`);
+    if (selectionCount === 0) {
       return 'shuttle-button-inactive';
     }
     return 'shuttle-button-active';
   }
 
   requestInToNotIn() {
-
-    const selectedInGroupItems = this.inGroupSelector.getSelectedItems().map((p: ShuttleData)  => {
+    const selectedInGroupItems = this.inGroupSelector.getSelectedItems().map((p: ShuttleData) => {
       const newP = new ShuttleData(p.name, p.id, p.ref, p.source);
       return newP;
     });
