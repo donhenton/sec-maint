@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';
 import { ShuttleData, ShuttleStructure, GROUP_MEMBERSHIP } from './shuttle.interfaces';
 import { ItemSelectorComponent } from './item-selector/item-selector.component';
+import { EditType } from '../basic-selector/basic.interfaces';
 
 @Component({
   selector: 'app-item-shuttle',
@@ -13,6 +14,7 @@ export class ItemShuttleComponent implements OnInit, OnChanges {
   constructor() { }
 
   @Input() shuttleItems: ShuttleStructure;
+  @Input() maintType: EditType;
   @Input() shuttleMetaData: any = {assignedTo: '<assignedTo>'};
   @ViewChild('selectorInGroup') inGroupSelector: ItemSelectorComponent;
   @ViewChild('selectorNotInGroup') notInGroupSelector: ItemSelectorComponent;

@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, Output, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { EditState, SelectorData, EditType } from '../../components/basic-selector/basic.interfaces';
 import { BasicSelectorComponent } from '../../components/basic-selector/basic-selector.component';
 import { Group } from '../../services/security.interfaces';
 import { AlertService } from '../../services/alert.service';
-import { ActivatedRoute } from '@angular/router';
 import { GroupMaintService } from '../../services/groupMaintService';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -12,7 +11,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: './group-maint.component.html',
   styleUrls: ['./group-maint.component.scss']
 })
-export class GroupMaintComponent implements OnInit {
+export class GroupMaintComponent implements OnInit, OnChanges {
 
   selectedGroup: Group = new Group();
   groupState: EditState = EditState.INITIAL;
@@ -20,21 +19,24 @@ export class GroupMaintComponent implements OnInit {
   groupForm: FormGroup;
   groupsData: SelectorData[];
   @ViewChild('groupSelector') groupSelector: BasicSelectorComponent;
+  @Input() initialGroupsData: Group[];
 
-  constructor(private route: ActivatedRoute,
+  constructor(
     private alertService: AlertService,
     private formBuilder: FormBuilder,
     private groupService: GroupMaintService) { }
 
   ngOnInit() {
 
-    const me = this;
-    this.route.data
-      .subscribe((data) => {
-        // this.appData = new AppData(data.usersAppsData[0], data.usersAppsData[1]);
-        me.generateSelectorData(data.groupsData);
-      });
     this.createGroupForm();
+
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.initialGroupsData) {
+
+     // console.log(changes.initialGroupsData);
+     this.generateSelectorData(changes.initialGroupsData.currentValue);
+    }
 
   }
 

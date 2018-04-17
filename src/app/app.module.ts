@@ -21,6 +21,7 @@ import { GroupMaintService } from './services/groupMaintService';
 import { GroupsPageComponent } from './pages/groups-page/groups-page.component';
 import { ItemShuttleComponent } from './components/item-shuttle/item-shuttle.component';
 import { ItemSelectorComponent } from './components/item-shuttle/item-selector/item-selector.component';
+import { EditType } from './components/basic-selector/basic.interfaces';
 
 
 
@@ -34,7 +35,8 @@ const appRoutes: Routes = [
 
   {
     path: 'groupMaint', component: GroupsPageComponent,
-    resolve: { groupsData: GroupMaintService }
+    resolve: { groupsData: GroupMaintService },
+    data: {maintType:  EditType.Applications}
   },
 
   {

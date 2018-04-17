@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Rx'; // NOT from 'rxjs/Rx/Observable
 import { Group } from './security.interfaces';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { SecurityService } from './securityService';
-import { EditState } from '../components/basic-selector/basic.interfaces';
+import { EditState, EditType } from '../components/basic-selector/basic.interfaces';
 
 @Injectable()
 export class GroupMaintService implements Resolve<any> {
@@ -20,17 +20,22 @@ export class GroupMaintService implements Resolve<any> {
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
 
         const me = this;
-        const data = {};
-        return this.getAllGroups();
+        const maintType: EditType =   route.data['maintType'];
+     //   if (maintType === EditType.Applications)
+        return this.getAllGroups(maintType);
 
     }
 
-    getAllGroups(): Observable<Group[]> {
+    getAllGroups(maintType = null): Observable<any> {
 
         // the map call turns string to json object
         const me = this;
         return this._http.get(this.URL_BASE + 'groups/all', this.securityService.createRequestOpts())
-            .map(res => res.json());
+            .map(res => res.json())
+            .map((d) =>  {
+                return {groupsData: d, maintType: maintType};
+            });
+
 
     }
 

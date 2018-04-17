@@ -7,7 +7,7 @@
 
 <div *ngIf="this.shuttleItems" class="shuttle-group">
   <div class="shuttle-sub-header">In  group {{this.shuttleMetaData.selectedGroup}} 0</div>
-  <shuttle-item-selector #selectorInGroup [groupMemberShip]="0" [shuttleData]="this.shuttleItems.inGroup"></shuttle-item-selector>
+  <shuttle-item-selector #selectorInGroup [groupMemberShip]="this.maintType" [shuttleData]="this.shuttleItems.inGroup"></shuttle-item-selector>
 </div>
 
 
@@ -19,7 +19,7 @@
 
 <div *ngIf="this.shuttleItems" class="shuttle-group">
   <div class="shuttle-sub-header">Not in group {{this.shuttleMetaData.selectedGroup}} 1</div>
-  <shuttle-item-selector #selectorNotInGroup  [groupMemberShip]="1" [shuttleData]="this.shuttleItems.notInGroup"></shuttle-item-selector>
+  <shuttle-item-selector #selectorNotInGroup  [groupMemberShip]="this.maintType" [shuttleData]="this.shuttleItems.notInGroup"></shuttle-item-selector>
 </div>
 
 <div class="row">
