@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  securityAPIURL: 'http://localhost:9000/sec/'
+  securityAPIURL: 'http://localhost:9000/sec/',
+  swaggerUrl: 'http://localhost:9000/swagger-ui.html'
 };
