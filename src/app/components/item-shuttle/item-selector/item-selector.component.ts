@@ -69,14 +69,22 @@ export class ItemSelectorComponent implements OnInit, OnChanges {
     if (this.selectorForm && this.selectorForm.value.selectedItems) {
       this.selectorForm.value.selectedItems.some(v => {
         if (v.id === currentItem.id) {
-          cssValue = cssValue + 'chosen';
+          cssValue = cssValue + 'chosen ';
         }
       });
     }
-    return cssValue;
+    if (currentItem.source !== this.groupMemberShip) {
+      cssValue = cssValue + 'staged ';
+    }
+    return cssValue.trim();
 
 
   }
+  // computeActionIndicator(currentItem: ShuttleData) {
+  //   if (currentItem.source !== this.groupMemberShip) {
+  //      return
+  //   }
+  // }
   getFilteredShuttleBuffer() {
 
     return this.shuttleBuffer;
@@ -101,7 +109,7 @@ export class ItemSelectorComponent implements OnInit, OnChanges {
 
       items.forEach((p: ShuttleData) => {
         const newP = new ShuttleData(p.name, p.id, p.ref, p.source);
-        this.shuttleBuffer.push(newP);
+        this.shuttleBuffer.unshift(newP);
       });
     }
   }

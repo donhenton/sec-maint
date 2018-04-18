@@ -27,5 +27,9 @@
                
             }
         }
+        &.staged:before {
+            font-family: "foundation-icons";
+              content: "\f194    ";  
+        }
     }
 }
