@@ -90,30 +90,35 @@ export class GroupMaintService implements Resolve<any> {
 
     maintainGroups(inActions: ActionItems, notInActions: ActionItems,
         type: EditType, currentGroup: Group): Observable<any> {
-            const me = this;
+        const me = this;
         if (type === EditType.Applications) {
             const urlCalls = [];
             // remove calls
             notInActions.items.forEach(app => {
                 const removeUrl = this.URL_BASE + `groups/removeApplication/${app.id}/group/${currentGroup.id}`;
                 // console.log(`doing remove ${removeUrl} ${app.name}`);
-                urlCalls.push(removeUrl);
+                urlCalls.push({type: 'remove', url: removeUrl});
             });
 
             inActions.items.forEach(app => {
                 const addUrl = this.URL_BASE + `groups/addApplication/${app.id}/group/${currentGroup.id}`;
                 // console.log(`doing add ${addUrl} ${app.name}`);
-                urlCalls.push(addUrl);
+                urlCalls.push({type: 'add', url: addUrl});
             });
-// https://blog.angularindepth.com/practical-rxjs-in-the-wild-requests-with-concatmap-vs-mergemap-vs-forkjoin-11e5b2efe293
+            // https://blog.angularindepth.com/practical-rxjs-in-the-wild-requests-with-concatmap-vs-mergemap-vs-forkjoin-11e5b2efe293
 
-           return Observable.from(urlCalls).pipe(
+            return Observable.from(urlCalls).pipe(
 
-               mergeMap((url, index) => {
-                  return me._http.put(url, null);
-               })
+                mergeMap((urlData, index) => {
+                    return me._http.put(urlData.url, null).map(res => {
+                        const r = res.json();
+                        r['type'] = urlData.type;
+                        return  r;
 
-           ); // end pipe
+                    });
+                })
+
+            ); // end pipe
 
 
 

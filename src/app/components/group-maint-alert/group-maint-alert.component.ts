@@ -29,7 +29,7 @@ export class GroupMaintAlertComponent implements OnInit {
         this.displayData['data'] = actionData.data.data;
         this.displayData['maintType'] = actionData.data.maintType;
         this.displayData['selectedGroup'] = actionData.data.selectedGroup;
-        console.log(this.displayData);
+     //   console.log(this.displayData);
 
       } else {
         this.displayData = {type: 'initial'};

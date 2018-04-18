@@ -125,5 +125,14 @@ export class ItemSelectorComponent implements OnInit, OnChanges {
     return new ActionItems(me.groupMemberShip, actionItems);
   }
 
+  resetSource(item, setTo: GROUP_MEMBERSHIP) {
+    this.shuttleBuffer.map(b => {
+      if (b.id === item.id) {
+        b.source = setTo;
+      }
+      return b;
+    });
+
+  }
 
 }

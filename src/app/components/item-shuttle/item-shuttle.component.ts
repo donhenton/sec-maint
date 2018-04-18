@@ -20,6 +20,7 @@ export class ItemShuttleComponent implements OnInit, OnChanges {
   @ViewChild('selectorInGroup') inGroupSelector: ItemSelectorComponent;
   @ViewChild('selectorNotInGroup') notInGroupSelector: ItemSelectorComponent;
   @Output() shuttleEvent: EventEmitter<any> = new EventEmitter<any>();
+  isDirty = false;
 
   constructor(private alertService: AlertService, private groupService: GroupMaintService) { }
   ngOnInit() { }
@@ -76,12 +77,25 @@ export class ItemShuttleComponent implements OnInit, OnChanges {
   }
 
   performUpdates(inActions, notInActions): void {
-    console.log('got a yes');
+    //  console.log('got a yes');
+
+    const me = this;
+    me.notInGroupSelector.clearSelection();
+    me.inGroupSelector.clearSelection();
+
     this.groupService.maintainGroups(inActions, notInActions,
       this.maintType, this.shuttleMetaData.selectedGroup)
       .subscribe(success => {
 
         console.log('success ' + JSON.stringify(success));
+        // TODO reload the selectors with the new data
+        // spin through the collections and reset the source ids instead?
+        if (success.type === 'add') {
+          me.inGroupSelector.resetSource(success, GROUP_MEMBERSHIP.IN);
+        } else {
+          me.notInGroupSelector.resetSource(success, GROUP_MEMBERSHIP.NOT_IN);
+        }
+
       },
         error => {
           console.error('error ' + JSON.stringify(error.json()));
@@ -99,7 +113,7 @@ export class ItemShuttleComponent implements OnInit, OnChanges {
     const yesFunction = function () {
       me.performUpdates(inActions, notInActions);
     };
-    const noFunction = function () { console.log('got a no'); };
+    const noFunction = function () { };
 
     const data = {
       data: { inActions, notInActions }, maintType: EditType[this.maintType],
@@ -107,12 +121,18 @@ export class ItemShuttleComponent implements OnInit, OnChanges {
     };
     this.alertService.confirmGroup(data, yesFunction, noFunction);
 
+  }
 
-    // console.log(`you are processing ${EditType[this.maintType]}`);
-    // this.notInGroupSelector.clearSelection();
-    // this.inGroupSelector.clearSelection();
-    // this.reloadShuttleItems();
-    // this.shuttleEvent.emit({ 'request': 'reloadShuttleItems' });
+  disableSubmitButton() {
+
+    if (this.inGroupSelector) {
+      const notInItems: ActionItems = this.notInGroupSelector.findActionItems();
+      const inItems: ActionItems = this.inGroupSelector.findActionItems();
+      const notInCt = notInItems.items ? notInItems.items.length : 0;
+      const inCt = inItems.items ? inItems.items.length : 0;
+      return !(notInCt || inCt);
+    }
+    return true;
 
   }
 

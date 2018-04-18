@@ -24,6 +24,6 @@
 
 <div class="row">
 
-<button (click)="this.handleShuttleUpdate()" class="btn btn-primary">Submit Changes</button>
+<button [disabled]="this.disableSubmitButton()" (click)="this.handleShuttleUpdate()" class="btn btn-primary">Submit Changes</button>
 
 </div>
