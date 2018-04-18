@@ -6,7 +6,7 @@
 <div class="row">
 
   <div class="column50Left form-column">
-    <h3>Users [{{this.userState}}]</h3>
+    <h3>Users</h3>
     <div class="row selector-container">
     <app-basic-selector #usersSelector (selectEvent)="this.onSelectUser($event)" [listData]="this.appData.usersData"></app-basic-selector>
     </div>
@@ -26,7 +26,7 @@
   </div>
 
   <div class="column50Right form-column">
-    <h3>Applications  [{{this.appState}}]</h3>
+    <h3>Applications</h3>
     <div class="row selector-container">
       <app-basic-selector #appsSelector [editState]="this.appState" (selectEvent)="this.onSelectApp($event)"  [listData]="this.appData.appsData"></app-basic-selector>
     </div>

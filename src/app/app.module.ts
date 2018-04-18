@@ -41,6 +41,12 @@ const appRoutes: Routes = [
   },
 
   {
+    path: 'userMaint', component: GroupsPageComponent,
+    resolve: { groupsData: GroupMaintService },
+    data: {maintType:  EditType.Users}
+  },
+
+  {
     path: 'assignments', component: AssignmentsComponent
   },
 // { path: '', redirectTo: '/home', pathMatch: 'full' },

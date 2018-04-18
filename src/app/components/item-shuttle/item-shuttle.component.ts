@@ -87,7 +87,7 @@ export class ItemShuttleComponent implements OnInit, OnChanges {
       this.maintType, this.shuttleMetaData.selectedGroup)
       .subscribe(success => {
 
-        console.log('success ' + JSON.stringify(success));
+        // console.log('success ' + JSON.stringify(success));
         // TODO reload the selectors with the new data
         // spin through the collections and reset the source ids instead?
         if (success.type === 'add') {

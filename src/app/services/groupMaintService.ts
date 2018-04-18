@@ -70,17 +70,26 @@ export class GroupMaintService implements Resolve<any> {
         }
     }
 
-    getApplicationsInGroup(g: Group) {
+    getApplicationsInGroup(g: Group): Observable<any> {
         return this._http.get(this.URL_BASE + `groups/applications/${g.id}`).map(res => res.json());
     }
 
-    getApplicationsNotInGroup(g: Group) {
+    getApplicationsNotInGroup(g: Group): Observable<any> {
         return this._http.get(this.URL_BASE + `groups/applications/not/${g.id}`).map(res => res.json());
     }
+
+    getUsersInGroup(g: Group): Observable<any> {
+        return this._http.get(this.URL_BASE + `groups/users/${g.id}`).map(res => res.json());
+    }
+
+    getUsersNotInGroup(g: Group): Observable<any> {
+        return this._http.get(this.URL_BASE + `groups/users/not/${g.id}`).map(res => res.json());
+    }
+
     /*
     returns an array pos0 is the apps IN the group pos 1 is NOT IN group
     */
-    getApplicationsDataForGroup(g: Group) {
+    getApplicationsDataForGroup(g: Group): Observable<any> {
         const me = this;
         return Observable.forkJoin(me.getApplicationsInGroup(g),
             me.getApplicationsNotInGroup(g));
@@ -88,45 +97,54 @@ export class GroupMaintService implements Resolve<any> {
 
     }
 
+    getUsersDataForGroup(g: Group): Observable<any> {
+        const me = this;
+        return Observable.forkJoin(me.getUsersInGroup(g),
+            me.getUsersNotInGroup(g));
+
+
+    }
+
+
+
     maintainGroups(inActions: ActionItems, notInActions: ActionItems,
         type: EditType, currentGroup: Group): Observable<any> {
         const me = this;
-        if (type === EditType.Applications) {
-            const urlCalls = [];
-            // remove calls
-            notInActions.items.forEach(app => {
-                const removeUrl = this.URL_BASE + `groups/removeApplication/${app.id}/group/${currentGroup.id}`;
-                // console.log(`doing remove ${removeUrl} ${app.name}`);
-                urlCalls.push({type: 'remove', url: removeUrl});
-            });
-
-            inActions.items.forEach(app => {
-                const addUrl = this.URL_BASE + `groups/addApplication/${app.id}/group/${currentGroup.id}`;
-                // console.log(`doing add ${addUrl} ${app.name}`);
-                urlCalls.push({type: 'add', url: addUrl});
-            });
-            // https://blog.angularindepth.com/practical-rxjs-in-the-wild-requests-with-concatmap-vs-mergemap-vs-forkjoin-11e5b2efe293
-
-            return Observable.from(urlCalls).pipe(
-
-                mergeMap((urlData, index) => {
-                    return me._http.put(urlData.url, null).map(res => {
-                        const r = res.json();
-                        r['type'] = urlData.type;
-                        return  r;
-
-                    });
-                })
-
-            ); // end pipe
-
-
-
-        } else {
-            // handle users
-
-
+        let urlType = 'Application';
+        if (type === EditType.Users) {
+            urlType = 'User';
         }
+        const urlCalls = [];
+        // remove calls
+        notInActions.items.forEach(app => {
+            const removeUrl = this.URL_BASE + `groups/remove${urlType}/${app.id}/group/${currentGroup.id}`;
+            // console.log(`doing remove ${removeUrl} ${app.name}`);
+            urlCalls.push({ type: 'remove', url: removeUrl, sourceType: type });
+        });
+
+        inActions.items.forEach(app => {
+            const addUrl = this.URL_BASE + `groups/add${urlType}/${app.id}/group/${currentGroup.id}`;
+            // console.log(`doing add ${addUrl} ${app.name}`);
+            urlCalls.push({ type: 'add', url: addUrl, sourceType: type });
+        });
+        // https://blog.angularindepth.com/practical-rxjs-in-the-wild-requests-with-concatmap-vs-mergemap-vs-forkjoin-11e5b2efe293
+
+        return Observable.from(urlCalls).pipe(
+
+            mergeMap((urlData, index) => {
+                return me._http.put(urlData.url, null).map(res => {
+                    const r = res.json();
+                    r['type'] = urlData.type;
+                    if (type === EditType.Users) {
+                        r['id'] = r.userid;
+                    }
+                    return r;
+
+                });
+            })
+
+        ); // end pipe
+
 
     }
 
