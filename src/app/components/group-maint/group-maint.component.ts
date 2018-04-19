@@ -121,7 +121,7 @@ export class GroupMaintComponent implements OnInit, OnChanges {
 
             me.groupState = EditState.INITIAL;
             me.selectedGroup = new Group();
-            me.generateSelectorData(groups);
+            me.generateSelectorData(groups.groupsData);
             me.selectEvent.emit({ group: null, action: EditState.DELETE });
 
 
