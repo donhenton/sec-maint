@@ -15,6 +15,7 @@ import { GroupMaintService } from '../../services/groupMaintService';
 export class ItemShuttleComponent implements OnInit, OnChanges {
 
   @Input() shuttleItems: ShuttleStructure;
+  shuttleItemsBackUp: ShuttleStructure;
   @Input() maintType: EditType;
   @Input() shuttleMetaData: any = { assignedTo: '<assignedTo>' };
   @ViewChild('selectorInGroup') inGroupSelector: ItemSelectorComponent;
@@ -28,6 +29,7 @@ export class ItemShuttleComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
 
     if (changes.shuttleItems && changes.shuttleItems.firstChange === false) {
+      this.shuttleItemsBackUp = JSON.parse(JSON.stringify(changes.shuttleItems.currentValue));
       if (this.notInGroupSelector) {
         this.notInGroupSelector.clearSelection();
         this.inGroupSelector.clearSelection();
@@ -103,6 +105,10 @@ export class ItemShuttleComponent implements OnInit, OnChanges {
 
       )
       ;
+  }
+
+  handleShuttleCancel() {
+    this.shuttleItems = JSON.parse(JSON.stringify(this.shuttleItemsBackUp));
   }
 
 
