@@ -8,3 +8,7 @@ export const environment = {
   securityAPIURL: 'http://localhost:9000/sec/',
   swaggerUrl: 'http://localhost:9000/swagger-ui.html'
 };
+
+
+// securityAPIURL: 'https://donhenton-spring-boot.herokuapp.com/sec/',
+// securityAPIURL: 'http://localhost:9000/sec/',

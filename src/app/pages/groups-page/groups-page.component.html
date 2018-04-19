@@ -12,7 +12,10 @@
   </div>
 
   <div class="column50Right form-column">
+    <div *ngIf="this.isLoading === true" class="row  wait-indicator">
+        <img class="img-border" src="assets/images/ajax-loader-small.gif"> Loading Data ...
 
+    </div>
     <div class="row application-header" *ngIf="this.groupMaintainer.selectedGroup.id > -1">
       <app-item-shuttle (shuttleEvent)="onShuttleEvent($event)" [maintType]="this.maintType" [shuttleMetaData]="this.shuttleMetaData" [shuttleItems]="this.applicationData" ></app-item-shuttle>
     </div>

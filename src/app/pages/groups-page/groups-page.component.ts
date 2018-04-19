@@ -23,6 +23,7 @@ export class GroupsPageComponent implements OnInit {
   shuttleMetaData = { assignedTo: 'n/a', selectedGroup: '' };
   groupsData: Group[];
   maintType: EditType;
+  isLoading = false;
 
 
   constructor(private groupService: GroupMaintService, private route: ActivatedRoute, ) { }
@@ -59,15 +60,17 @@ export class GroupsPageComponent implements OnInit {
       } else {
         dataObs = this.groupService.getUsersDataForGroup(data.group);
       }
-
+      this.isLoading = true;
       dataObs.subscribe(successData => {
         me.applicationData = new ShuttleStructure(successData[0], successData[1], me.maintType);
         me.shuttleMetaData.selectedGroup = data.group;
+        this.isLoading = false;
 
 
       }, error => {
 
         console.error('ERROR in groups-page\n' + JSON.stringify(error.json()));
+        this.isLoading = false;
 
       });
 
