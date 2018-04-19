@@ -1,7 +1,7 @@
 # SecMaint
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.2.
-It is available at https://donhenton.github.io/sec-maint/public_html/
+It is available at https://donhenton.github.io/sec-maint/public_html/. It is a front-end maintenance application for the service found here: https://github.com/donhenton/spring-boot-birt. This is a fictitious security system with users and applications in security groups.
 
 ## Development server
 
