@@ -3,6 +3,7 @@ import { EditState, SelectorData, EditType } from '../../components/basic-select
 import { BasicSelectorComponent } from '../../components/basic-selector/basic-selector.component';
 import { Group } from '../../services/security.interfaces';
 import { AlertService } from '../../services/alert.service';
+import { ErrorService } from '../../services/error.service';
 import { GroupMaintService } from '../../services/groupMaintService';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -23,6 +24,7 @@ export class GroupMaintComponent implements OnInit, OnChanges {
 
   constructor(
     private alertService: AlertService,
+    private errorService: ErrorService,
     private formBuilder: FormBuilder,
     private groupService: GroupMaintService) { }
 
@@ -31,11 +33,17 @@ export class GroupMaintComponent implements OnInit, OnChanges {
     this.createGroupForm();
 
   }
+  clearError(location) {
+    this.errorService.clearError(location);
+  }
+
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes.initialGroupsData) {
 
       // console.log(changes.initialGroupsData);
       this.generateSelectorData(changes.initialGroupsData.currentValue);
+      this.clearError('ngOnChanges');
     }
 
   }
@@ -55,16 +63,18 @@ export class GroupMaintComponent implements OnInit, OnChanges {
     if (me.groupState === EditState.EDIT) {
       newGroup.id = this.selectedGroup.id;
     }
-    console.log(`group obj ${JSON.stringify(newGroup)}`);
+   // console.log(`group obj ${JSON.stringify(newGroup)}`);
 
     this.groupService.addOrUpdate(newGroup, me.groupState).subscribe(data => {
 
       const returnedValue = JSON.parse(data._body);
       me.updateList(returnedValue, this.groupState);
       me.resetForm();
+      me.clearError('onFormSubmit success');
 
     }, error => {
-      console.log('save problem ' + JSON.stringify(error.json()));
+
+      me.errorService.setError(error.json());
       me.resetForm();
 
     });
@@ -73,7 +83,7 @@ export class GroupMaintComponent implements OnInit, OnChanges {
   }
 
   onFormCancel(ev) {
-
+    this.clearError('onFormCancel');
     this.resetForm();
   }
 
@@ -81,6 +91,7 @@ export class GroupMaintComponent implements OnInit, OnChanges {
     this.groupForm.reset({ groupName: '' });
     this.groupState = EditState.INITIAL;
     this.selectedGroup = new Group();
+
   }
 
   generateSelectorData(data) {
@@ -95,6 +106,7 @@ export class GroupMaintComponent implements OnInit, OnChanges {
 
   onSelectGroup(data) {
     this.groupState = data.type;
+    this.clearError('onSelectGroup');
     this.selectedGroup = data.selected.ref;
     const me = this;
     if (this.groupState === EditState.DELETE) {
@@ -156,6 +168,7 @@ onAddOrCancel(d) {
   const requestedType: EditType = Number(EditType[d.type]);
   const requestedAction: EditState = Number(EditState[d]);
   this.groupState = requestedAction;
+  this.clearError('addOrCancel');
 
 }
 

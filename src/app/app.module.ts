@@ -15,6 +15,7 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { GroupMaintAlertComponent } from './components/group-maint-alert/group-maint-alert.component';
 import { AlertService } from './services/alert.service';
+import { ErrorService } from './services/error.service';
 import { GroupMaintComponent } from './components/group-maint/group-maint.component';
 import { AssignmentsComponent } from './pages/assignments/assignments.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
@@ -84,7 +85,7 @@ const appRoutes: Routes = [
     BrowserModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [SecurityService, AlertService, GroupMaintService],
+  providers: [SecurityService, AlertService, GroupMaintService, ErrorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
