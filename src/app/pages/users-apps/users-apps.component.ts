@@ -192,19 +192,19 @@ export class UsersAppsComponent implements OnInit {
           me.securityService.getAllUsers().subscribe(users => {
 
             me.appData = new AppData(oldAppData, users);
-            me.appState = EditState.INITIAL;
+            me.userState = EditState.INITIAL;
             me.selectedUser = new User();
 
           }, error => {
             console.log(error.json());
-            me.appState = EditState.INITIAL;
+            me.userState = EditState.INITIAL;
             me.selectedUser = new User();
           });
         });
       }, function () {
         // ACTION: Do this if user says NO
         // console.log('got a no');
-        me.appState = EditState.INITIAL;
+        me.userState = EditState.INITIAL;
         me.selectedUser = new User();
       });
 
@@ -250,6 +250,7 @@ export class UsersAppsComponent implements OnInit {
         // ACTION: Do this if user says NO
         // console.log('got a no');
         me.appState = EditState.INITIAL;
+        console.log('after cancel on delete dialog');
         me.selectedApp = new Applications();
       });
 
