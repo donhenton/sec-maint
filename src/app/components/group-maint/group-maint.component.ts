@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, EventEmitter, Output, Input, OnChanges, S
 import { EditState, SelectorData, EditType } from '../../components/basic-selector/basic.interfaces';
 import { BasicSelectorComponent } from '../../components/basic-selector/basic-selector.component';
 import { Group } from '../../services/security.interfaces';
-import { AlertService } from '../../services/alert.service';
+import { AlertService } from './../alert/alert-items/alert.service';
 import { ErrorService } from '../../services/error.service';
 import { GroupMaintService } from '../../services/groupMaintService';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
