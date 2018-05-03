@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Applications, User } from '../../services/security.interfaces';
 import { SelectorData, EditState, EditType, AppsUpdate } from '../../components/basic-selector/basic.interfaces';
 import { BasicSelectorComponent } from '../../components/basic-selector/basic-selector.component';
-import { AlertService } from './../../components/alert/alert-items/alert.service';
+import { AlertService } from './../../modules/alert/alert-items/alert.service' ;
 import { SecurityService } from './../../services/securityService';
 
 

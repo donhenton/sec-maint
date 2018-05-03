@@ -11,9 +11,7 @@ import { UsersAppsComponent } from './pages/users-apps/users-apps.component';
 import { SecurityService } from './services/securityService';
 import { BasicSelectorComponent } from './components/basic-selector/basic-selector.component';
 import { ApplicationFormComponent } from './components/application-form/application-form.component';
-// import { AlertComponent } from './components/alert/alert.component';
 import { GroupMaintAlertComponent } from './components/group-maint-alert/group-maint-alert.component';
-// import { AlertService } from './services/alert.service';
 import { ErrorService } from './services/error.service';
 import { GroupMaintComponent } from './components/group-maint/group-maint.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
@@ -22,7 +20,7 @@ import { GroupsPageComponent } from './pages/groups-page/groups-page.component';
 import { ItemShuttleComponent } from './components/item-shuttle/item-shuttle.component';
 import { ItemSelectorComponent } from './components/item-shuttle/item-selector/item-selector.component';
 import { EditType } from './components/basic-selector/basic.interfaces';
-import { AlertMainModule } from './components/alert/alert-main.module';
+import { AlertMainModule } from './modules/alert/alert-main.module';
 
 
 
@@ -63,7 +61,6 @@ const appRoutes: Routes = [
     UsersAppsComponent,
     BasicSelectorComponent,
     ApplicationFormComponent,
-   // AlertComponent,
     GroupMaintAlertComponent,
     GroupMaintComponent,
     MainPageComponent,
@@ -78,7 +75,7 @@ const appRoutes: Routes = [
     HttpModule,
     BrowserModule,
     RouterModule.forRoot(appRoutes),
-    AlertMainModule.forRoot()
+    AlertMainModule.forRoot() // used here to get the provider
   ],
   providers: [SecurityService, GroupMaintService, ErrorService],
   bootstrap: [AppComponent]

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AlertService } from './../alert/alert-items/alert.service';
+import { AlertService } from './../../modules/alert/alert-items/alert.service' ;
 
 @Component({
   // tslint:disable-next-line:component-selector

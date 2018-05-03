@@ -3,7 +3,7 @@ import { ShuttleData, ShuttleStructure, GROUP_MEMBERSHIP, ActionItems } from './
 import { ItemSelectorComponent } from './item-selector/item-selector.component';
 import { EditType } from '../basic-selector/basic.interfaces';
 import { Action } from 'rxjs/scheduler/Action';
-import { AlertService } from './../alert/alert-items/alert.service';
+import { AlertService } from './../../modules/alert/alert-items/alert.service' ;
 import { GroupMaintService } from '../../services/groupMaintService';
 
 
