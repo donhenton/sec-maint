@@ -1,42 +1,34 @@
 <h2>
-  Maintain User Security Assignments</h2>
+    Maintain User Security Assignments</h2>
 
 
 <div class="row">
-  <div class="well">
-    This application maintains security groups, and allows assigments of users and applications to those groups, for a fictional
-    application security system. Below is the database schema that this application maintains. The data is maintained using
-    JPA for database access, and Jackson/Spring for REST services. The postgres database includes constraints to demonstrate
-    error handling.
-  </div>
-  <div class="column50Left">
-    <div class="row">
-      <img class="img-border" src="assets/images/sec_schema.jpg">
+    <div class="well">
+        This application maintains security groups, and allows assigments of users and applications to those groups, for a fictional application security system. Below is the database schema that this application maintains. The data is maintained using JPA for
+        database access, and Jackson/Spring for REST services. The postgres database includes constraints to demonstrate error handling.
     </div>
-  </div>
-  <div class="column50Left">
+    <div class="column50Left">
+        <div class="row">
+            <img class="img-border" src="assets/images/sec_schema.jpg">
+        </div>
+    </div>
+    <div class="column50Left">
 
-    <div class="row">
-      <h4>NOTE:</h4>
-      <br> For this application to work the backend REST services need to be started on heroku, which you can do by visiting
-      the
-      <a target="_new" href={{this.swaggerUrl}}>swagger documentation</a> page first
+
+        <div class="row">
+            Swagger documentation for the security maintenance REST Service is located <a target="_new" href={{this.swaggerUrl}}>here</a>. Select the sec entry in the selection box at the top.
+        </div>
+        <div class="row">
+            <blockquote>
+                <ul class='basic-list source-list'>
+                    <li>
+                        <a target="_new" href="https://github.com/donhenton/spring-boot-birt">REST Service Source Code</a>
+                    </li>
+                    <li>
+                        <a target="_new" href="https://github.com/donhenton/sec-maint">Angular Front-end Source Code</a>
+                    </li>
+                </ul>
+            </blockquote>
+        </div>
     </div>
-    <div class="row">
-        Swagger documentation for the security maintenance REST Service is located <a target="_new" href={{this.swaggerUrl}}>here</a>. 
-         Select the sec entry in the selection box at the top.
-      </div>
-    <div class="row">
-      <blockquote>
-        <ul class='basic-list source-list'>
-          <li>
-            <a target="_new" href="https://github.com/donhenton/spring-boot-birt">REST Service Source Code</a>
-          </li>
-          <li>
-            <a target="_new" href="https://github.com/donhenton/sec-maint">Angular Front-end Source Code</a>
-          </li>
-        </ul>
-      </blockquote>
-    </div>
-  </div>
 </div>
