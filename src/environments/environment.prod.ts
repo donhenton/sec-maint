@@ -9,5 +9,5 @@ export const environment = {
 export const environment = {
   production: true,
   securityAPIURL: 'https://secbirt.awsdhenton.com/gateway/sec/',
-  swaggerUrl: 'http://birt.awsdhenton.com:9000/swagger-ui.html'
+  swaggerUrl: 'http://birt.awsdhenton.com/swagger-ui.html'
 };
