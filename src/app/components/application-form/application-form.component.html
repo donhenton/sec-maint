@@ -1,38 +1,37 @@
- 
-<form *ngIf="this.showForm('Applications')" class="form well form-inline form-border"  [formGroup]="this.appForm" (ngSubmit)="onFormSubmit()"> 
-  
-  <div class="row">
-    <label *ngIf="this.editState > 1">ID: {{this.selectedApp.id}}</label> <label class='pull-right'>[{{this.editState}}]</label>
-    <label *ngIf="this.editState === 1" class="add-label">(Enter new Application Name)</label>
-  </div>
-  <div class="row">
-    <label for="applicationName">Application Name: </label>
-    <input type="text" size="70" id="applicationName" formControlName="applicationName">
-  </div>
-  <div class="row">
-    <button type="submit" id="appSubmitButton" [disabled]="this.appForm.invalid && !this.appForm.dirty" class="btn btn-primary">Save</button>
-    <button type="button"  id="appCancelButton" (click)="this.onCancel($event)"  [disabled]="this.appForm.invalid && !this.appForm.dirty" class="btn btn-red">Cancel</button>
-  </div>
+<form *ngIf="this.showForm('Applications')" class="form well form-inline form-border" [formGroup]="this.appForm" (ngSubmit)="onFormSubmit()">
+
+    <div class="row">
+        <label *ngIf="this.editState > 1">ID: {{this.selectedApp.id}}</label> <label class='pull-right'>[{{this.editState}}]</label>
+        <label *ngIf="this.editState === 1" class="add-label">(Enter new Application Name)</label>
+    </div>
+    <div class="row">
+        <label for="applicationName">Application Name: </label>
+        <input type="text" size="40" id="applicationName" formControlName="applicationName">
+    </div>
+    <div class="row">
+        <button type="submit" id="appSubmitButton" [disabled]="this.appForm.invalid && !this.appForm.dirty" class="btn btn-primary">Save</button>
+        <button type="button" id="appCancelButton" (click)="this.onCancel($event)" [disabled]="this.appForm.invalid && !this.appForm.dirty" class="btn btn-red">Cancel</button>
+    </div>
 
 </form>
 
-<form  *ngIf="this.showForm('Users')" class="form well form-inline form-border"  [formGroup]="this.appForm" (ngSubmit)="onFormSubmit()"> 
-  
-  <div class="row">
-    <label *ngIf="this.editState > 1">ID: {{this.selectedUser.userid}}</label> <label class='pull-right'>[{{this.editState}}]</label>
-    <label *ngIf="this.editState === 1" class="add-label">(Enter new User Name)</label>
-  </div>
-  <div class="row">
-    <label for="username">User Name: </label>
-    <input type="text" size="70" id="username" formControlName="username">
-  </div>
-  <div class="row">
-    <label for="login">Login: </label>
-    <input type="text" size="10" id="login" formControlName="login">
-  </div>
-  <div class="row">
-    <button type="submit" id="userSubmitButton" [disabled]="this.appForm.invalid && !this.appForm.dirty" class="btn btn-primary">Save</button>
-    <button type="button"  id="userCancelButton" (click)="this.onCancel($event)"  class="btn btn-red">Cancel</button>
-  </div>
+<form *ngIf="this.showForm('Users')" class="form well form-inline form-border" [formGroup]="this.appForm" (ngSubmit)="onFormSubmit()">
+
+    <div class="row">
+        <label *ngIf="this.editState > 1">ID: {{this.selectedUser.userid}}</label> <label class='pull-right'>[{{this.editState}}]</label>
+        <label *ngIf="this.editState === 1" class="add-label">(Enter new User Name)</label>
+    </div>
+    <div class="row">
+        <label for="username">User Name: </label>
+        <input type="text" size="40" id="username" formControlName="username">
+    </div>
+    <div class="row">
+        <label for="login">Login: </label>
+        <input type="text" size="10" id="login" formControlName="login">
+    </div>
+    <div class="row">
+        <button type="submit" id="userSubmitButton" [disabled]="this.appForm.invalid && !this.appForm.dirty" class="btn btn-primary">Save</button>
+        <button type="button" id="userCancelButton" (click)="this.onCancel($event)" class="btn btn-red">Cancel</button>
+    </div>
 
 </form>
