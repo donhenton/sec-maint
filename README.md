@@ -13,11 +13,20 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build. 
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build. **NOTE: the base tag included in the generated index needs to be adjusted** The command to build is ng build --aot for ahead of time compiling.
+Steps are below:
 
-```
-ng build -prod -aot
-```
+* in one copy of sec-maint for master run ng build --prod --aot this creates a dist folder
+* create a folder called sec-maint-staging, one level above the sec-maint copy
+* move the dist into  staging and rename it public_html
+* in that public_html folder find index.html and rewrite the base tag to &lt;base href=""&gt;
+* clone https://github.com/donhenton/sec-maint.git into the staging folder
+* at this point, sec-maint-staging should have two folders sec-maint and public html
+* cd into sec-maint-staging/sec-maint
+* git checkout -t remotes/origin/gh-pages (to checkout existing gh-pages branch)
+* __git checkout -b gh-pages__ then __git push --set-upstream origin gh-pages__ to create the gh-pages branch first time
+* replace sec-maint-staging/sec-maint/public_html with sec-maint-staging/public_html
+* commit and push
 
 ## Running unit tests
 
