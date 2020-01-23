@@ -1,46 +1,46 @@
 <div class="row">
-  <h2>Maintain Users and Applications</h2>
+    <h2>Maintain Users and Applications</h2>
 </div>
 
 
 <div class="row">
 
-  <div class="column50Left form-column">
-    <h3>Users</h3>
-    <div class="row selector-container">
-    <app-basic-selector #usersSelector (selectEvent)="this.onSelectUser($event)" [listData]="this.appData.usersData"></app-basic-selector>
-    </div>
-    <div class="row">
-      <button type="button" *ngIf="this.userState === 0" id="userAddlButton" (click)="this.onAddOrCancel({type:'Users',request:'ADD'})"   class="btn btn-primary">Add</button>
-      <button type="button" *ngIf="this.userState === 1" id="userCancelButton" (click)="this.onAddOrCancel({type:'Users',request:'INITIAL'})"   class="btn btn-primary">Cancel</button>
-    
-    </div>
-    <div *ngIf="this.userState !== 0" class="edit-form-container">
+    <div class="column50Left form-column">
+        <h3>Users</h3>
+        <div class="row selector-container">
+            <app-basic-selector #usersSelector (selectEvent)="this.onSelectUser($event)" [listData]="this.appData.usersData"></app-basic-selector>
+        </div>
+        <div class="row">
+            <button type="button" *ngIf="this.userState === 0" id="userAddlButton" (click)="this.onAddOrCancel({type:'Users',request:'ADD'})" class="btn btn-primary">Add</button>
+            <button type="button" *ngIf="this.userState === 1" id="userCancelButton" (click)="this.onAddOrCancel({type:'Users',request:'INITIAL'})" class="btn btn-primary">Cancel</button>
 
-      <app-application-form (formAction)="this.handleFormAction($event)" [formTargetInput]="'Users'" [editState]="this.userState" [selectedUser]="this.selectedUser"  ></app-application-form>
+        </div>
+        <div *ngIf="this.userState !== 0" class="edit-form-container">
 
-    </div>
-    <div [ngClass]="this.computeFormClass('Users')"></div>
+            <app-application-form (formAction)="this.handleFormAction($event)" [formTargetInput]="'Users'" [editState]="this.userState" [selectedUser]="this.selectedUser"></app-application-form>
+
+        </div>
+        <div [ngClass]="this.computeFormClass('Users')"></div>
 
 
-  </div>
-
-  <div class="column50Right form-column">
-    <h3>Applications</h3>
-    <div class="row selector-container">
-      <app-basic-selector #appsSelector [editState]="this.appState" (selectEvent)="this.onSelectApp($event)"  [listData]="this.appData.appsData"></app-basic-selector>
-    </div>
-    <div class="row">
-      <button type="button" *ngIf="this.appState === 0" id="appAddlButton" (click)="this.onAddOrCancel({type:'Applications',request:'ADD'})"   class="btn btn-primary">Add</button>
-      <button type="button" *ngIf="this.appState === 1" id="appCancelButton" (click)="this.onAddOrCancel({type:'Applications',request:'INITIAL'})"   class="btn btn-primary">Cancel</button>
-    
     </div>
 
-  <div *ngIf="this.appState !== 0" class="edit-form-container">
-    
-    <app-application-form (formAction)="this.handleFormAction($event)" [formTargetInput]="'Applications'" [editState]="this.appState" [selectedApp]="this.selectedApp"  ></app-application-form>
+    <div class="column50Right form-column">
+        <h3>Applicationszzz</h3>
+        <div class="row selector-container">
+            <app-basic-selector #appsSelector [editState]="this.appState" (selectEvent)="this.onSelectApp($event)" [listData]="this.appData.appsData"></app-basic-selector>
+        </div>
+        <div class="row">
+            <button type="button" *ngIf="this.appState === 0" id="appAddlButton" (click)="this.onAddOrCancel({type:'Applications',request:'ADD'})" class="btn btn-primary">Add</button>
+            <button type="button" *ngIf="this.appState === 1" id="appCancelButton" (click)="this.onAddOrCancel({type:'Applications',request:'INITIAL'})" class="btn btn-primary">Cancel</button>
 
-  </div>
-  <div [ngClass]="this.computeFormClass('Applications')"></div>
-</div>
-<app-alert></app-alert>
+        </div>
+
+        <div *ngIf="this.appState !== 0" class="edit-form-container">
+
+            <app-application-form (formAction)="this.handleFormAction($event)" [formTargetInput]="'Applications'" [editState]="this.appState" [selectedApp]="this.selectedApp"></app-application-form>
+
+        </div>
+        <div [ngClass]="this.computeFormClass('Applications')"></div>
+    </div>
+    <app-alert></app-alert>
